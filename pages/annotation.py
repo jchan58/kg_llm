@@ -55,10 +55,6 @@ if current_drug is None:
     st.success("🎉 All drugs are fully annotated!")
     st.stop()
 
-
-# -------------------------------------
-# UI HEADER
-# -------------------------------------
 st.title(f"{assigned_disease.title()} — Drug Annotation")
 st.header(f"Drug: **{current_drug.title()}**")
 
@@ -70,12 +66,13 @@ if st.button("Logout"):
     st.session_state.clear()
     st.switch_page("app.py")
 
+with st.expander("GPT Rationale", expanded=True):
+    rationale = drug_map[current_drug].get("rationale_bullets", [])
+    for bullet in rationale:
+        st.markdown(f"- {bullet}")
+
 questionnaire = drug_map[current_drug]["questionnaire"]
 
-
-# -------------------------------------
-# UI/DB KEYS
-# -------------------------------------
 UI_TO_DB = {
     "Q1": "Q3_interest",
     "Q2": "Q2_Research_status",
