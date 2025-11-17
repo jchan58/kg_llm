@@ -149,8 +149,18 @@ Q2 = st.multiselect(
 Q2_internal = [Q2_map[x] for x in Q2]
 
 def bool_radio(label, stored):
-    val = "Yes" if stored is True else "No"
-    picked = st.radio(label, ["Yes", "No"], index=["Yes", "No"].index(val))
+    if stored is True:
+        default = "Yes"
+    elif stored is False:
+        default = "No"
+    else:
+        default = None
+
+    picked = st.radio(
+        label,
+        ["Yes", "No"],
+        index=0 if default == "Yes" else 1 if default == "No" else 0
+    )
     return picked == "Yes"
 
 Q3 = bool_radio("Q3. Combination therapy possible?", questionnaire.get(UI_TO_DB["Q3"]))
