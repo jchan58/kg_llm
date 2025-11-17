@@ -62,6 +62,14 @@ if current_drug is None:
 st.title(f"{assigned_disease.title()} — Drug Annotation")
 st.header(f"Drug: **{current_drug.title()}**")
 
+if st.button("Logout"):
+    users_collection.update_one(
+        {"email": email},
+        {"$set": {"last_drug": current_drug}}
+    )
+    st.session_state.clear()
+    st.switch_page("app.py")
+
 questionnaire = drug_map[current_drug]["questionnaire"]
 
 
@@ -133,6 +141,11 @@ if isinstance(stored_q2, str):
 
 stored_labels_q2 = [Q2_rev[v] for v in stored_q2 if v in Q2_rev]
 
+fda_val = questionnaire.get("Q1_FDA_status", "")
+if fda_val in ["FDA_approved_for_[Disease]", "FDA_approved_for_other_disease"]:
+    if "FDA-Approved" not in stored_labels_q2:
+        stored_labels_q2.insert(0, "FDA-Approved")
+
 Q2 = st.multiselect(
     "Q2. What is the current testing status? (Select all that apply)",
     Q2_labels,
@@ -164,14 +177,6 @@ Q8_notes = st.text_area(
     "Q8. Additional Notes (Optional)",
     value=questionnaire.get(UI_TO_DB["Q8"], ""),
 )
-
-if st.button("Logout"):
-    users_collection.update_one(
-        {"email": email},
-        {"$set": {"last_drug": current_drug}}
-    )
-    st.session_state.clear()
-    st.switch_page("app.py")
 
 if st.button("Next"):
 
