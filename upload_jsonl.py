@@ -20,12 +20,12 @@ with open(jsonl_file, "r", encoding="utf-8") as file:
         drug_map[drug_name] = object 
 
 glioblastoma_doc = {
-    "disease": object['disease'], 
+    "disease": object['disease'].strip().lower(), 
     "drug_map": drug_map
 }
 
 collection.update_one(
-    {"disease": "Glioblastoma"},
+    {"disease": "glioblastoma"},
     {"$set": glioblastoma_doc},
     upsert=True
 )
