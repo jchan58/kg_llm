@@ -98,7 +98,7 @@ else:
     default_index = 0 
 
 Q1 = st.radio(
-    "Q1. Is this drug of interest for repurposing?",
+    "Q1. Is this drug of interest for repurposing? (Please select one)",
     Q1_options,
     index=default_index,
 )
@@ -157,7 +157,7 @@ Q3 = bool_radio("Q3. Combination therapy possible?", questionnaire.get(UI_TO_DB[
 Q4 = bool_radio("Q4. Does GPT's reasoning make sense?", questionnaire.get(UI_TO_DB["Q4"]))
 Q6 = bool_radio("Q6. Neurotoxicity Concern?", questionnaire.get(UI_TO_DB["Q6"]))
 
-Q5_text = st.text_input("Q5. Delivery Method Notes", value=questionnaire.get(UI_TO_DB["Q5"], ""))
+Q5_text = st.text_input("Q5. Delivery Method Notes (e.g., oral, IV, nanoparticle, etc.)", value=questionnaire.get(UI_TO_DB["Q5"], ""))
 Q7_pmids = st.text_area(
     "Q7. Supporting Evidence (PMIDs, comma-separated)",
     value=", ".join(questionnaire.get(UI_TO_DB["Q7"], [])),
