@@ -46,14 +46,14 @@ if not st.session_state.logged_in:
         if not user:
             users_collection.insert_one({
                 "email": user_email,
-                "assigned_disease": assigned_disease,  # already lowercase
+                "assigned_disease": assigned_disease,
                 "created_at": datetime.datetime.utcnow()
             })
 
         # Save session variables
         st.session_state.logged_in = True
         st.session_state.user_email = user_email
-        st.session_state.assigned_disease = assigned_disease  # lowercase
+        st.session_state.assigned_disease = assigned_disease
 
         st.success(f"Welcome! You're assigned to annotate: {assigned_disease}")
         st.switch_page("pages/annotation.py")
