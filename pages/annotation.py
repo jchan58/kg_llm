@@ -24,19 +24,23 @@ if not doc:
 drug_map = doc["drug_map"]
 
 def get_next_drug():
-    last = st.session_state.get("last_drug")
     drug_names = list(drug_map.keys())
+    last = st.session_state.get("last_drug", None)
+    if last is None:
+        return drug_names[0]
 
     if last in drug_names:
-        return last
+        last_idx = drug_names.index(last)
+        for drug in drug_names[last_idx+1:]:
+            q = drug_map[drug].get("questionnaire", {})
+            if any(v in ["", None, [], {}] for v in q.values()):
+                return drug
 
     for drug, data in drug_map.items():
         q = data.get("questionnaire", {})
         if any(v in ["", None, [], {}] for v in q.values()):
             return drug
-
     return None
-
 
 current_drug = get_next_drug()
 
