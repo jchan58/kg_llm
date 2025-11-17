@@ -1,9 +1,7 @@
 import streamlit as st
 from pymongo import MongoClient
 
-# -------------------------------------
-# AUTH CHECK
-# -------------------------------------
+
 if "logged_in" not in st.session_state or not st.session_state.logged_in:
     st.error("Please return to the login page.")
     st.stop()
@@ -11,9 +9,7 @@ if "logged_in" not in st.session_state or not st.session_state.logged_in:
 email = st.session_state.user_email
 assigned_disease = st.session_state.assigned_disease.lower().strip()
 
-# -------------------------------------
-# DB CONNECTION
-# -------------------------------------
+
 MONGO_URI = st.secrets["MONGO_URI"]
 client = MongoClient(MONGO_URI)
 db = client["kgxllm"]
@@ -27,20 +23,13 @@ if not doc:
 
 drug_map = doc["drug_map"]
 
-
-# -------------------------------------
-# NEW: Resume Progress Logic
-# -------------------------------------
 def get_next_drug():
-    """Return the saved last_drug or next unfinished drug."""
     last = st.session_state.get("last_drug")
     drug_names = list(drug_map.keys())
 
-    # Resume where user left off
     if last in drug_names:
         return last
 
-    # Otherwise find first unfinished
     for drug, data in drug_map.items():
         q = data.get("questionnaire", {})
         if any(v in ["", None, [], {}] for v in q.values()):
@@ -56,6 +45,13 @@ if current_drug is None:
     st.stop()
 
 st.title(f"{assigned_disease.title()} — Drug Annotation")
+
+drug_list = list(drug_map.keys())
+total_drugs = len(drug_list)
+current_index = drug_list.index(current_drug) + 1
+
+st.markdown(f"### Progress: {current_index} / {total_drugs} drugs annotated")
+st.progress(current_index / total_drugs)
 st.header(f"Drug: **{current_drug.title()}**")
 
 if st.button("Logout"):
@@ -85,7 +81,6 @@ UI_TO_DB = {
 }
 
 Q1_options = ["Of interest", "Not of interest", "Have already tested"]
-
 Q1_map = {
     "Of interest": "Of_interest",
     "Not of interest": "Not_of_interest",
@@ -96,16 +91,18 @@ Q1_rev = {v: k for k, v in Q1_map.items()}
 
 stored_raw = questionnaire.get(UI_TO_DB["Q1"], "")
 stored_label = Q1_rev.get(stored_raw, None)
+
 if stored_label in Q1_options:
     default_index = Q1_options.index(stored_label)
 else:
-    default_index = None 
+    default_index = 0 
 
 Q1 = st.radio(
     "Q1. Is this drug of interest for repurposing?",
     Q1_options,
     index=default_index,
 )
+
 Q2_labels = [
     "FDA-Approved",
     "Positive clinical outcomes",
@@ -148,8 +145,8 @@ Q2 = st.multiselect(
     Q2_labels,
     default=stored_labels_q2,
 )
-Q2_internal = [Q2_map[x] for x in Q2]
 
+Q2_internal = [Q2_map[x] for x in Q2]
 
 def bool_radio(label, stored):
     val = "Yes" if stored is True else "No"
@@ -160,23 +157,15 @@ Q3 = bool_radio("Q3. Combination therapy possible?", questionnaire.get(UI_TO_DB[
 Q4 = bool_radio("Q4. Does GPT's reasoning make sense?", questionnaire.get(UI_TO_DB["Q4"]))
 Q6 = bool_radio("Q6. Neurotoxicity Concern?", questionnaire.get(UI_TO_DB["Q6"]))
 
-Q5_text = st.text_input(
-    "Q5. Delivery Method Notes",
-    value=questionnaire.get(UI_TO_DB["Q5"], ""),
-)
-
+Q5_text = st.text_input("Q5. Delivery Method Notes", value=questionnaire.get(UI_TO_DB["Q5"], ""))
 Q7_pmids = st.text_area(
     "Q7. Supporting Evidence (PMIDs, comma-separated)",
     value=", ".join(questionnaire.get(UI_TO_DB["Q7"], [])),
 )
 
-Q8_notes = st.text_area(
-    "Q8. Additional Notes (Optional)",
-    value=questionnaire.get(UI_TO_DB["Q8"], ""),
-)
+Q8_notes = st.text_area("Q8. Additional Notes (Optional)", value=questionnaire.get(UI_TO_DB["Q8"], ""))
 
 if st.button("Next"):
-
     new_data = {
         UI_TO_DB["Q1"]: Q1_map.get(Q1, "") if Q1 else "",
         UI_TO_DB["Q2"]: Q2_internal,
@@ -204,6 +193,7 @@ if st.button("Next"):
         {"email": email},
         {"$set": {"last_drug": current_drug}}
     )
+    st.session_state.last_drug = current_drug
 
     st.success("Saved!")
     st.rerun()
