@@ -185,8 +185,7 @@ Q7_pmids = st.text_area(
 
 Q8_notes = st.text_area("Q8. Additional Notes (Optional)", value=questionnaire.get(UI_TO_DB["Q8"], ""))
 
-col1, col2 = st.columns(2)
-
+col1, col2 = st.columns([1, 1], vertical_alignment="bottom")
 with col1:
     drug_list = list(drug_map.keys())
     idx = drug_list.index(current_drug)
