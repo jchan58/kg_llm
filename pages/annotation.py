@@ -9,6 +9,9 @@ if "logged_in" not in st.session_state or not st.session_state.logged_in:
 email = st.session_state.user_email
 assigned_disease = st.session_state.assigned_disease.lower().strip()
 
+if "navigate_to" not in st.session_state:
+    st.session_state.navigate_to = None
+
 
 MONGO_URI = st.secrets["MONGO_URI"]
 client = MongoClient(MONGO_URI)
@@ -42,7 +45,10 @@ def get_next_drug():
             return drug
     return None
 
-current_drug = get_next_drug()
+if st.session_state.navigate_to:
+    current_drug = st.session_state.navigate_to
+else:
+    current_drug = get_next_drug()
 
 if current_drug is None:
     st.success("🎉 All drugs are fully annotated!")
@@ -180,25 +186,25 @@ Q7_pmids = st.text_area(
 Q8_notes = st.text_area("Q8. Additional Notes (Optional)", value=questionnaire.get(UI_TO_DB["Q8"], ""))
 
 col1, col2 = st.columns(2)
+
 with col1:
     drug_list = list(drug_map.keys())
     idx = drug_list.index(current_drug)
 
-    back_disabled = idx == 0  # can't go back from the first drug
+    back_disabled = idx == 0
 
     if st.button("← Back", disabled=back_disabled):
         prev_drug = drug_list[idx - 1]
-        st.session_state.last_drug = prev_drug
 
-        users_collection.update_one(
-            {"email": email},
-            {"$set": {"last_drug": prev_drug}}
-        )
+        # Override navigation
+        st.session_state.navigate_to = prev_drug
+        st.session_state.last_drug = prev_drug
 
         st.rerun()
 
 with col2:
     if st.button("Next →"):
+        # Save responses (your existing code)
         new_data = {
             UI_TO_DB["Q1"]: Q1_map.get(Q1, "") if Q1 else "",
             UI_TO_DB["Q2"]: Q2_internal,
@@ -226,7 +232,7 @@ with col2:
             {"email": email},
             {"$set": {"last_drug": current_drug}}
         )
+        st.session_state.navigate_to = None
         st.session_state.last_drug = current_drug
 
-        st.success("Saved!")
         st.rerun()
