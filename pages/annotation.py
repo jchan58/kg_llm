@@ -179,35 +179,54 @@ Q7_pmids = st.text_area(
 
 Q8_notes = st.text_area("Q8. Additional Notes (Optional)", value=questionnaire.get(UI_TO_DB["Q8"], ""))
 
-if st.button("Next"):
-    new_data = {
-        UI_TO_DB["Q1"]: Q1_map.get(Q1, "") if Q1 else "",
-        UI_TO_DB["Q2"]: Q2_internal,
-        UI_TO_DB["Q3"]: Q3,
-        UI_TO_DB["Q4"]: Q4,
-        UI_TO_DB["Q5"]: Q5_text,
-        UI_TO_DB["Q6"]: Q6,
-        UI_TO_DB["Q7"]: [p.strip() for p in Q7_pmids.split(",") if p.strip()],
-        UI_TO_DB["Q8"]: Q8_notes,
-    }
+col1, col2 = st.columns(2)
+with col1:
+    drug_list = list(drug_map.keys())
+    idx = drug_list.index(current_drug)
 
-    updates = {}
-    for key, new_val in new_data.items():
-        old_val = questionnaire.get(key, "")
-        if new_val != old_val:
-            updates[f"drug_map.{current_drug}.questionnaire.{key}"] = new_val
+    back_disabled = idx == 0  # can't go back from the first drug
 
-    if updates:
-        diseases_collection.update_one(
-            {"disease": assigned_disease},
-            {"$set": updates}
+    if st.button("← Back", disabled=back_disabled):
+        prev_drug = drug_list[idx - 1]
+        st.session_state.last_drug = prev_drug
+
+        users_collection.update_one(
+            {"email": email},
+            {"$set": {"last_drug": prev_drug}}
         )
 
-    users_collection.update_one(
-        {"email": email},
-        {"$set": {"last_drug": current_drug}}
-    )
-    st.session_state.last_drug = current_drug
+        st.rerun()
 
-    st.success("Saved!")
-    st.rerun()
+with col2:
+    if st.button("Next →"):
+        new_data = {
+            UI_TO_DB["Q1"]: Q1_map.get(Q1, "") if Q1 else "",
+            UI_TO_DB["Q2"]: Q2_internal,
+            UI_TO_DB["Q3"]: Q3,
+            UI_TO_DB["Q4"]: Q4,
+            UI_TO_DB["Q5"]: Q5_text,
+            UI_TO_DB["Q6"]: Q6,
+            UI_TO_DB["Q7"]: [p.strip() for p in Q7_pmids.split(",") if p.strip()],
+            UI_TO_DB["Q8"]: Q8_notes,
+        }
+
+        updates = {}
+        for key, new_val in new_data.items():
+            old_val = questionnaire.get(key, "")
+            if new_val != old_val:
+                updates[f"drug_map.{current_drug}.questionnaire.{key}"] = new_val
+
+        if updates:
+            diseases_collection.update_one(
+                {"disease": assigned_disease},
+                {"$set": updates}
+            )
+
+        users_collection.update_one(
+            {"email": email},
+            {"$set": {"last_drug": current_drug}}
+        )
+        st.session_state.last_drug = current_drug
+
+        st.success("Saved!")
+        st.rerun()
