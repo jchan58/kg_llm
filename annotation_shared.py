@@ -2,7 +2,18 @@ import streamlit as st
 from pymongo import MongoClient
 
 def run_annotation(assigned_disease):
-
+    # hide the sidebar information
+    hide_sidebar_style = """
+        <style>
+            [data-testid="stSidebarNav"] {
+                display: none;
+            }
+            [data-testid="stSidebar"] {
+                background-color: white;
+            }
+        </style>
+    """
+    st.markdown(hide_sidebar_style, unsafe_allow_html=True)
     email = f"auto_user_{assigned_disease}"
     st.session_state.user_email = email
     st.session_state.assigned_disease = assigned_disease.lower().strip()
