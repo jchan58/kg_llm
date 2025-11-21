@@ -2,130 +2,153 @@ import streamlit as st
 from pymongo import MongoClient
 
 def run_annotation(assigned_disease):
-    # hide the sidebar information
-    hide_sidebar_style = """
+
+    # hide Streamlit sidebar
+    st.markdown("""
         <style>
-            [data-testid="stSidebarNav"] {
-                display: none;
-            }
-            [data-testid="stSidebar"] {
-                background-color: white;
-            }
+            [data-testid="stSidebarNav"] { display: none; }
+            [data-testid="stSidebar"] { background-color: white; }
         </style>
-    """
-    st.markdown(hide_sidebar_style, unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
+
+    # auto email (no login)
     email = f"auto_user_{assigned_disease}"
     st.session_state.user_email = email
     st.session_state.assigned_disease = assigned_disease.lower().strip()
-    
+
     if "navigate_to" not in st.session_state:
         st.session_state.navigate_to = None
 
-    MONGO_URI = st.secrets["MONGO_URI"]
-    client = MongoClient(MONGO_URI)
+    # DB setup
+    client = MongoClient(st.secrets["MONGO_URI"])
     db = client["kgxllm"]
     diseases_collection = db["diseases"]
     users_collection = db["users"]
 
     doc = diseases_collection.find_one({"disease": assigned_disease})
     if not doc:
-        st.error(f"Disease '{assigned_disease}' not found in database.")
+        st.error(f"Disease '{assigned_disease}' not found.")
         st.stop()
 
     drug_map = doc["drug_map"]
 
+    # pick next drug
     def get_next_drug():
         drug_names = list(drug_map.keys())
         last = st.session_state.get("last_drug", None)
+
         if last is None:
             return drug_names[0]
 
         if last in drug_names:
-            last_idx = drug_names.index(last)
-            for drug in drug_names[last_idx+1:]:
-                q = drug_map[drug].get("questionnaire", {})
+            idx = drug_names.index(last)
+            for d in drug_names[idx+1:]:
+                q = drug_map[d].get("questionnaire", {})
                 if any(v in ["", None, [], {}] for v in q.values()):
-                    return drug
+                    return d
 
-        for drug, data in drug_map.items():
+        for d, data in drug_map.items():
             q = data.get("questionnaire", {})
             if any(v in ["", None, [], {}] for v in q.values()):
-                return drug
+                return d
+
         return None
 
-    if st.session_state.navigate_to:
-        current_drug = st.session_state.navigate_to
-    else:
-        current_drug = get_next_drug()
+    # navigation
+    current_drug = st.session_state.navigate_to or get_next_drug()
 
     if current_drug is None:
-        st.success("🎉 All drugs are fully annotated!")
+        st.success("🎉 All drugs annotated!")
         st.stop()
 
     st.title(f"{assigned_disease.title()} — Drug Annotation")
 
+    # Progress
     drug_list = list(drug_map.keys())
     total_drugs = len(drug_list)
     current_index = drug_list.index(current_drug) + 1
-
-    st.markdown(f"### Progress: {current_index} / {total_drugs} drugs annotated")
+    st.markdown(f"### Progress: {current_index}/{total_drugs}")
     st.progress(current_index / total_drugs)
-    st.header(f"Drug: **{current_drug.title()}**")
 
+    st.header(f"Drug: **{current_drug}**")
+
+    # rationale
     with st.expander("GPT Rationale", expanded=True):
-        rationale = drug_map[current_drug].get("rationale_bullets", [])
-        for bullet in rationale:
+        for bullet in drug_map[current_drug].get("rationale_bullets", []):
             st.markdown(f"- {bullet}")
 
     questionnaire = drug_map[current_drug]["questionnaire"]
 
+    # ---------- MAPPINGS ----------
     UI_TO_DB = {
         "Q1": "Q3_interest",
-        "Q2": "Q2_Research_status",
-        "Q3": "Q4_combination_therapy",
-        "Q4": "Q5_reasoning_makes_sense",
-        "Q5": "Q6_delivery_method_notes",
-        "Q6": "Q7_neurotoxicity_concern",
-        "Q7": "Q8_supporting_evidence_pmids",
-        "Q8": "Q9_note",
+        "Q2_FDA": "Q1_FDA_status",
+        "Q3_status": "Q2_Research_status",
+        "Q4_refs": "Q8_supporting_evidence_references",
+        "Q5_combo": "Q4_combination_therapy",
+        "Q6_reason": "Q5_reasoning_makes_sense",
+        "Q7_neuro": "Q7_neurotoxicity_concern",
+        "Q8_note": "Q9_note",
     }
 
     Q1_options = ["Of interest", "Not of interest", "Have already tested"]
-    Q1_map = {
-        "Of interest": "Of_interest",
-        "Not of interest": "Not_of_interest",
-        "Have already tested": "Have_already_tested",
+
+    # reverse mapping for DB → UI
+    Q1_rev = {
+        "Of_interest": "Of interest",
+        "Not_of_interest": "Not of interest",
+        "Have_already_tested": "Have already tested",
     }
 
-    Q1_rev = {v: k for k, v in Q1_map.items()}
+    prev_q1_raw = questionnaire.get(UI_TO_DB["Q1"], None)
+    prev_q1_label = Q1_rev.get(prev_q1_raw, None)
 
-    stored_raw = questionnaire.get(UI_TO_DB["Q1"], "")
-    stored_label = Q1_rev.get(stored_raw, None)
-
-    if stored_label in Q1_options:
-        default_index = Q1_options.index(stored_label)
-    else:
-        default_index = 0 
-
-    Q1 = st.radio(
-        "Q1. Is this drug of interest for repurposing? (Please select one)",
+    Q1 = st.multiselect(
+        "Q1. Is this drug of interest for repurposing?",
         Q1_options,
-        index=default_index,
+        default=[prev_q1_label] if prev_q1_label else [],
+        max_selections=1
     )
+    Q1_value = Q1[0] if Q1 else None
 
-    Q2_labels = [
-        "FDA-Approved",
-        "Positive clinical outcomes",
-        "Negative clinical outcomes",
-        "Positive in-vivo outcomes",
-        "Negative in-vivo outcomes",
-        "Positive in-vitro outcomes",
-        "Negative in-vitro outcomes",
-        "Rarely discussed",
-        "Irrelevant drugs",
+    FDA_options = [
+    "FDA-Approved",
+    "FDA-Approved for other diseases",
+    "No",
     ]
 
-    Q2_map = {
+    FDA_map = {
+        "FDA-Approved": "FDA_approved_for_[Disease]",
+        "FDA-Approved for other diseases": "FDA_approved_for_other_disease",
+        "No": "no",
+    }
+
+    FDA_rev = {v: k for k, v in FDA_map.items()}
+
+    prev_fda_raw = questionnaire.get(UI_TO_DB["Q2_FDA"], None)
+    prev_fda_label = FDA_rev.get(prev_fda_raw, None)
+
+    Q2_FDA = st.multiselect(
+        "Q2. What is the current FDA status?",
+        FDA_options,
+        default=[prev_fda_label] if prev_fda_label else [],
+        max_selections=1
+    )
+
+    Q2_FDA_value = Q2_FDA[0] if Q2_FDA else None
+    STATUS_labels = [
+    "FDA-Approved",
+    "Positive clinical outcomes",
+    "Negative clinical outcomes",
+    "Positive in-vivo outcomes",
+    "Negative in-vivo outcomes",
+    "Positive in-vitro outcomes",
+    "Negative in-vitro outcomes",
+    "Rarely discussed",
+    "Irrelevant drugs",
+    ]
+
+    STATUS_map = {
         "FDA-Approved": "FDA_approved_for_other_disease",
         "Positive clinical outcomes": "positive_clinical_outcomes",
         "Negative clinical outcomes": "negative_clinical_outcomes",
@@ -137,106 +160,65 @@ def run_annotation(assigned_disease):
         "Irrelevant drugs": "irrelevant_drugs",
     }
 
-    Q2_rev = {v: k for k, v in Q2_map.items()}
+    # Q3
+    prev_q3_raw = questionnaire.get(UI_TO_DB["Q3_status"], [])
+    if isinstance(prev_q3_raw, str):
+        prev_q3_raw = [prev_q3_raw]
 
-    stored_q2 = questionnaire.get(UI_TO_DB["Q2"], [])
-    if isinstance(stored_q2, str):
-        stored_q2 = [stored_q2]
+    STATUS_rev = {v: k for k, v in STATUS_map.items()}
+    prev_q3_labels = []
+    for tag in prev_q3_raw:
+        if tag in STATUS_rev:
+            prev_q3_labels.append(STATUS_rev[tag])
 
-    stored_labels_q2 = [Q2_rev[v] for v in stored_q2 if v in Q2_rev]
-
-    fda_val = questionnaire.get("Q1_FDA_status", "")
-    if fda_val in ["FDA_approved_for_[Disease]", "FDA_approved_for_other_disease"]:
-        if "FDA-Approved" not in stored_labels_q2:
-            stored_labels_q2.insert(0, "FDA-Approved")
-
-    Q2 = st.multiselect(
-        "Q2. What is the current testing status? (Select all that apply)",
-        Q2_labels,
-        default=stored_labels_q2,
+    # Q4 
+    prev_refs = questionnaire.get(UI_TO_DB["Q4_refs"], [])
+    Q4_refs_input = st.text_area(
+        "Q4. Supporting Evidence (references)",
+        value="\n".join(prev_refs) if prev_refs else ""
     )
+    Q4_refs = [r.strip() for r in Q4_refs_input.split("\n") if r.strip()]
 
-    Q2_internal = [Q2_map[x] for x in Q2]
-
-    def bool_radio(label, stored):
-        if stored is True:
-            default = "Yes"
-        elif stored is False:
-            default = "No"
-        else:
-            default = None
-
-        picked = st.radio(
-            label,
+    def multi_yes_no(label, stored):
+        hint = f" _(previous: {'Yes' if stored else 'No'})_" if stored in [True, False] else ""
+        choice = st.multiselect(
+            f"{label}{hint}",
             ["Yes", "No"],
-            index=0 if default == "Yes" else 1 if default == "No" else 0
+            max_selections=1
         )
-        return picked == "Yes"
+        return choice[0] if choice else None
 
-    Q3 = bool_radio("Q3. Combination therapy possible?", questionnaire.get(UI_TO_DB["Q3"]))
-    Q4 = bool_radio("Q4. Does GPT's reasoning make sense?", questionnaire.get(UI_TO_DB["Q4"]))
-    Q6 = bool_radio("Q6. Neurotoxicity Concern?", questionnaire.get(UI_TO_DB["Q6"]))
+    Q5_combo = multi_yes_no("Q5. Combination therapy possible?", questionnaire.get(UI_TO_DB["Q5_combo"]))
+    Q6_reason = multi_yes_no("Q6. Does GPT's reasoning make sense?", questionnaire.get(UI_TO_DB["Q6_reason"]))
+    Q7_neuro = multi_yes_no("Q7. Neurotoxicity Concern?", questionnaire.get(UI_TO_DB["Q7_neuro"]))
 
-    Q5_text = st.text_input("Q5. Delivery Method Notes (e.g., oral, IV, nanoparticle, etc.)", value=questionnaire.get(UI_TO_DB["Q5"], ""))
-    Q7_pmids = st.text_area(
-        "Q7. Supporting Evidence (PMIDs, comma-separated)",
-        value=", ".join(questionnaire.get(UI_TO_DB["Q7"], [])),
+    Q8_note = st.text_area(
+        "Q8. Additional Notes (Optional)",
+        value=questionnaire.get(UI_TO_DB["Q8_note"], "")
     )
+    if st.button("Next →", use_container_width=True):
 
-    Q8_notes = st.text_area("Q8. Additional Notes (Optional)", value=questionnaire.get(UI_TO_DB["Q8"], ""))
+        new_data = {
+            UI_TO_DB["Q1"]: Q1_value,
+            UI_TO_DB["Q2_FDA"]: FDA_map.get(Q2_FDA_value, ""),
+            UI_TO_DB["Q3_status"]: Q3_internal,
+            UI_TO_DB["Q4_refs"]: Q4_refs,
+            UI_TO_DB["Q5_combo"]: (Q5_combo == "Yes") if Q5_combo else None,
+            UI_TO_DB["Q6_reason"]: (Q6_reason == "Yes") if Q6_reason else None,
+            UI_TO_DB["Q7_neuro"]: (Q7_neuro == "Yes") if Q7_neuro else None,
+            UI_TO_DB["Q8_note"]: Q8_note,
+        }
 
-    # add spacing before the buttons
-    st.markdown("<div style='margin-top: 2rem;'></div>", unsafe_allow_html=True)
-    col1, col2, col3 = st.columns([1, 6, 1])
+        updates = {}
+        for key, val in new_data.items():
+            if val != questionnaire.get(key, None):
+                updates[f"drug_map.{current_drug}.questionnaire.{key}"] = val
 
-    with col1:
-        drug_list = list(drug_map.keys())
-        idx = drug_list.index(current_drug)
-        back_disabled = idx == 0
+        if updates:
+            diseases_collection.update_one({"disease": assigned_disease}, {"$set": updates})
 
-        if st.button("← Back", use_container_width=True, disabled=back_disabled):
-            prev_drug = drug_list[idx - 1]
+        users_collection.update_one({"email": email}, {"$set": {"last_drug": current_drug}})
 
-            st.session_state.navigate_to = prev_drug
-            st.session_state.last_drug = prev_drug
-
-            st.rerun()
-
-    with col2:
-        st.write("")
-
-    with col3:
-        if st.button("Next →", use_container_width=True):
-            new_data = {
-                UI_TO_DB["Q1"]: Q1_map.get(Q1, "") if Q1 else "",
-                UI_TO_DB["Q2"]: Q2_internal,
-                UI_TO_DB["Q3"]: Q3,
-                UI_TO_DB["Q4"]: Q4,
-                UI_TO_DB["Q5"]: Q5_text,
-                UI_TO_DB["Q6"]: Q6,
-                UI_TO_DB["Q7"]: [p.strip() for p in Q7_pmids.split(",") if p.strip()],
-                UI_TO_DB["Q8"]: Q8_notes,
-            }
-
-            updates = {}
-            for key, new_val in new_data.items():
-                old_val = questionnaire.get(key, "")
-                if new_val != old_val:
-                    updates[f"drug_map.{current_drug}.questionnaire.{key}"] = new_val
-
-            if updates:
-                diseases_collection.update_one(
-                    {"disease": assigned_disease},
-                    {"$set": updates}
-                )
-
-            users_collection.update_one(
-                {"email": email},
-                {"$set": {"last_drug": current_drug}}
-            )
-
-            st.session_state.navigate_to = None
-            st.session_state.last_drug = current_drug
-
-            st.rerun()
-
+        st.session_state.navigate_to = None
+        st.session_state.last_drug = current_drug
+        st.rerun()
