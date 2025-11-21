@@ -174,15 +174,14 @@ def run_annotation(assigned_disease):
     prev_refs = questionnaire.get(UI_TO_DB["Q4_refs"], [])
     Q4_refs_input = st.text_area(
         "Q4. Supporting Evidence (references)",
-        value="\n".join(prev_refs) if prev_refs else ""
+        value="\n".join(prev_refs) if prev_refs else "", 
+        height=300
     )
     Q4_refs = [r.strip() for r in Q4_refs_input.split("\n") if r.strip()]
 
-
-    ### ---------- Q5–Q7 (optional single-choice with hint, NOT prefilled) ----------
     def yes_no_radio(label, stored):
         hint = f" _(previous: {'Yes' if stored else 'No'})_" if stored in [True, False] else ""
-        choices = ["", "Yes", "No"]  # "" = no selection yet
+        choices = ["Yes", "No"]
         val = st.radio(label + hint, choices, index=0)
         if val == "":
             return None
@@ -196,27 +195,52 @@ def run_annotation(assigned_disease):
         value=questionnaire.get(UI_TO_DB["Q8_note"], "")
     )
 
-    if st.button("Next →", use_container_width=True):
-        new_data = {
-            UI_TO_DB["Q1"]: Q1_value,
-            UI_TO_DB["Q2_FDA"]: FDA_map.get(Q2_FDA_value, ""),
-            UI_TO_DB["Q3_status"]: Q3_internal,
-            UI_TO_DB["Q4_refs"]: Q4_refs,
-            UI_TO_DB["Q5_combo"]: (Q5_combo == "Yes") if Q5_combo else None,
-            UI_TO_DB["Q6_reason"]: (Q6_reason == "Yes") if Q6_reason else None,
-            UI_TO_DB["Q7_neuro"]: (Q7_neuro == "Yes") if Q7_neuro else None,
-            UI_TO_DB["Q8_note"]: Q8_note,
-        }
+    st.markdown("<div style='margin-top: 2rem;'></div>", unsafe_allow_html=True)
+    col1, col2, col3 = st.columns([1, 6, 1])
 
-        updates = {}
-        for key, val in new_data.items():
-            if val != questionnaire.get(key, None):
-                updates[f"drug_map.{current_drug}.questionnaire.{key}"] = val
+    with col1:
+        drug_list = list(drug_map.keys())
+        idx = drug_list.index(current_drug)
+        back_disabled = idx == 0
+        if st.button("← Back", use_container_width=True, disabled=back_disabled):
+            prev_drug = drug_list[idx - 1]
+            st.session_state.navigate_to = prev_drug
+            st.session_state.last_drug = prev_drug
+            st.rerun()
 
-        if updates:
-            diseases_collection.update_one({"disease": assigned_disease}, {"$set": updates})
+    with col2:
+        st.write("") 
 
-        users_collection.update_one({"email": email}, {"$set": {"last_drug": current_drug}})
-        st.session_state.navigate_to = None
-        st.session_state.last_drug = current_drug
-        st.rerun()
+    with col3:
+        if st.button("Next →", use_container_width=True):
+            new_data = {
+                UI_TO_DB["Q1"]: Q1_value,
+                UI_TO_DB["Q2_FDA"]: FDA_map.get(Q2_FDA_value, ""),
+                UI_TO_DB["Q3_status"]: Q3_internal,
+                UI_TO_DB["Q4_refs"]: Q4_refs,
+                UI_TO_DB["Q5_combo"]: (Q5_combo == "Yes") if Q5_combo else None,
+                UI_TO_DB["Q6_reason"]: (Q6_reason == "Yes") if Q6_reason else None,
+                UI_TO_DB["Q7_neuro"]: (Q7_neuro == "Yes") if Q7_neuro else None,
+                UI_TO_DB["Q8_note"]: Q8_note,
+            }
+
+            updates = {
+                f"drug_map.{current_drug}.questionnaire.{key}": val
+                for key, val in new_data.items()
+                if val != questionnaire.get(key, None)
+            }
+
+            if updates:
+                diseases_collection.update_one(
+                    {"disease": assigned_disease},
+                    {"$set": updates}
+                )
+
+            users_collection.update_one(
+                {"email": email},
+                {"$set": {"last_drug": current_drug}}
+            )
+
+            st.session_state.navigate_to = None
+            st.session_state.last_drug = current_drug
+            st.rerun()
