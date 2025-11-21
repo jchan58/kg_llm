@@ -217,7 +217,6 @@ def run_annotation(assigned_disease):
             diseases_collection.update_one({"disease": assigned_disease}, {"$set": updates})
 
         users_collection.update_one({"email": email}, {"$set": {"last_drug": current_drug}})
-
         st.session_state.navigate_to = None
         st.session_state.last_drug = current_drug
         st.rerun()
