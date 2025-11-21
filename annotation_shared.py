@@ -92,8 +92,6 @@ def run_annotation(assigned_disease):
     }
 
     Q1_options = ["Of interest", "Not of interest", "Have already tested"]
-
-    # reverse mapping for DB → UI
     Q1_rev = {
         "Of_interest": "Of interest",
         "Not_of_interest": "Not of interest",
@@ -103,18 +101,17 @@ def run_annotation(assigned_disease):
     prev_q1_raw = questionnaire.get(UI_TO_DB["Q1"], None)
     prev_q1_label = Q1_rev.get(prev_q1_raw, None)
 
-    Q1 = st.multiselect(
+    Q1_value = st.radio(
         "Q1. Is this drug of interest for repurposing?",
         Q1_options,
-        default=[prev_q1_label] if prev_q1_label else [],
-        max_selections=1
+        index=Q1_options.index(prev_q1_label) if prev_q1_label in Q1_options else None,
     )
-    Q1_value = Q1[0] if Q1 else None
 
+    ### ---------- Q2 (single choice, prefilled) ----------
     FDA_options = [
-    "FDA-Approved",
-    "FDA-Approved for other diseases",
-    "No",
+        "FDA-Approved",
+        "FDA-Approved for other diseases",
+        "No",
     ]
 
     FDA_map = {
@@ -128,24 +125,23 @@ def run_annotation(assigned_disease):
     prev_fda_raw = questionnaire.get(UI_TO_DB["Q2_FDA"], None)
     prev_fda_label = FDA_rev.get(prev_fda_raw, None)
 
-    Q2_FDA = st.multiselect(
+    Q2_FDA_value = st.radio(
         "Q2. What is the current FDA status?",
         FDA_options,
-        default=[prev_fda_label] if prev_fda_label else [],
-        max_selections=1
+        index=FDA_options.index(prev_fda_label) if prev_fda_label in FDA_options else None,
     )
 
-    Q2_FDA_value = Q2_FDA[0] if Q2_FDA else None
+    ### ---------- Q3 (single choice, prefilled) ----------
     STATUS_labels = [
-    "FDA-Approved",
-    "Positive clinical outcomes",
-    "Negative clinical outcomes",
-    "Positive in-vivo outcomes",
-    "Negative in-vivo outcomes",
-    "Positive in-vitro outcomes",
-    "Negative in-vitro outcomes",
-    "Rarely discussed",
-    "Irrelevant drugs",
+        "FDA-Approved",
+        "Positive clinical outcomes",
+        "Negative clinical outcomes",
+        "Positive in-vivo outcomes",
+        "Negative in-vivo outcomes",
+        "Positive in-vitro outcomes",
+        "Negative in-vitro outcomes",
+        "Rarely discussed",
+        "Irrelevant drugs",
     ]
 
     STATUS_map = {
@@ -160,18 +156,21 @@ def run_annotation(assigned_disease):
         "Irrelevant drugs": "irrelevant_drugs",
     }
 
-    # Q3
-    prev_q3_raw = questionnaire.get(UI_TO_DB["Q3_status"], [])
-    if isinstance(prev_q3_raw, str):
-        prev_q3_raw = [prev_q3_raw]
-
+    # prefill
+    prev_q3_raw = questionnaire.get(UI_TO_DB["Q3_status"], None)
     STATUS_rev = {v: k for k, v in STATUS_map.items()}
-    prev_q3_labels = []
-    for tag in prev_q3_raw:
-        if tag in STATUS_rev:
-            prev_q3_labels.append(STATUS_rev[tag])
+    prev_q3_label = STATUS_rev.get(prev_q3_raw, None)
 
-    # Q4 
+    Q3_label = st.radio(
+        "Q3. What is the current testing status?",
+        STATUS_labels,
+        index=STATUS_labels.index(prev_q3_label) if prev_q3_label in STATUS_labels else None,
+    )
+
+    Q3_internal = STATUS_map[Q3_label]
+
+
+    ### ---------- Q4 (required text input, prefilled) ----------
     prev_refs = questionnaire.get(UI_TO_DB["Q4_refs"], [])
     Q4_refs_input = st.text_area(
         "Q4. Supporting Evidence (references)",
@@ -179,25 +178,25 @@ def run_annotation(assigned_disease):
     )
     Q4_refs = [r.strip() for r in Q4_refs_input.split("\n") if r.strip()]
 
-    def multi_yes_no(label, stored):
+
+    ### ---------- Q5–Q7 (optional single-choice with hint, NOT prefilled) ----------
+    def yes_no_radio(label, stored):
         hint = f" _(previous: {'Yes' if stored else 'No'})_" if stored in [True, False] else ""
-        choice = st.multiselect(
-            f"{label}{hint}",
-            ["Yes", "No"],
-            max_selections=1
-        )
-        return choice[0] if choice else None
+        choices = ["", "Yes", "No"]  # "" = no selection yet
+        val = st.radio(label + hint, choices, index=0)
+        if val == "":
+            return None
+        return val
 
-    Q5_combo = multi_yes_no("Q5. Combination therapy possible?", questionnaire.get(UI_TO_DB["Q5_combo"]))
-    Q6_reason = multi_yes_no("Q6. Does GPT's reasoning make sense?", questionnaire.get(UI_TO_DB["Q6_reason"]))
-    Q7_neuro = multi_yes_no("Q7. Neurotoxicity Concern?", questionnaire.get(UI_TO_DB["Q7_neuro"]))
-
+    Q5_combo = yes_no_radio("Q5. Combination therapy possible?", questionnaire.get(UI_TO_DB["Q5_combo"]))
+    Q6_reason = yes_no_radio("Q6. Does GPT's reasoning make sense?", questionnaire.get(UI_TO_DB["Q6_reason"]))
+    Q7_neuro = yes_no_radio("Q7. Neurotoxicity Concern?", questionnaire.get(UI_TO_DB["Q7_neuro"]))
     Q8_note = st.text_area(
         "Q8. Additional Notes (Optional)",
         value=questionnaire.get(UI_TO_DB["Q8_note"], "")
     )
-    if st.button("Next →", use_container_width=True):
 
+    if st.button("Next →", use_container_width=True):
         new_data = {
             UI_TO_DB["Q1"]: Q1_value,
             UI_TO_DB["Q2_FDA"]: FDA_map.get(Q2_FDA_value, ""),
