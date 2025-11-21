@@ -1,2 +1,2 @@
 from annotation_shared import run_annotation
-run_annotation("pancreaticcancer")
+run_annotation("pancreatic cancer")
