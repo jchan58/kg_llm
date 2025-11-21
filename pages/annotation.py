@@ -2,12 +2,10 @@ import streamlit as st
 from pymongo import MongoClient
 
 
-if "logged_in" not in st.session_state or not st.session_state.logged_in:
-    st.error("Please return to the login page.")
-    st.stop()
-
-email = st.session_state.user_email
-assigned_disease = st.session_state.assigned_disease.lower().strip()
+email = "auto_user"
+assigned_disease = "glioblastoma"
+st.session_state.user_email = email
+st.session_state.assigned_disease = assigned_disease
 
 if "navigate_to" not in st.session_state:
     st.session_state.navigate_to = None
