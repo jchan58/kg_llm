@@ -117,7 +117,7 @@ def run_annotation(assigned_disease):
     FDA_map = {
         "FDA-Approved": "FDA_approved_for_[Disease]",
         "FDA-Approved for other diseases": "FDA_approved_for_other_disease",
-        "No": "no",
+        "No": "Not_FDA_approved",
     }
 
     FDA_rev = {v: k for k, v in FDA_map.items()}
@@ -181,10 +181,10 @@ def run_annotation(assigned_disease):
 
     def yes_no_radio(label, stored):
         hint = f" _(previous: {'Yes' if stored else 'No'})_" if stored in [True, False] else ""
-        choices = ["Yes", "No"]
+        choices = ["N/A", "Yes", "No"]
         val = st.radio(label + hint, choices, index=0)
-        if val == "":
-            return None
+        if val == "N/A":
+            return None 
         return val
 
     Q5_combo = yes_no_radio("Q5. Combination therapy possible?", questionnaire.get(UI_TO_DB["Q5_combo"]))
