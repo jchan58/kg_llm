@@ -185,25 +185,28 @@ Q7_pmids = st.text_area(
 
 Q8_notes = st.text_area("Q8. Additional Notes (Optional)", value=questionnaire.get(UI_TO_DB["Q8"], ""))
 
-col1, col2 = st.columns([1, 1], vertical_alignment="bottom")
+# add spacing before the buttons
+st.markdown("<div style='margin-top: 2rem;'></div>", unsafe_allow_html=True)
+col1, col2, col3 = st.columns([1, 6, 1])
+
 with col1:
     drug_list = list(drug_map.keys())
     idx = drug_list.index(current_drug)
-
     back_disabled = idx == 0
 
-    if st.button("← Back", disabled=back_disabled):
+    if st.button("← Back", use_container_width=True, disabled=back_disabled):
         prev_drug = drug_list[idx - 1]
 
-        # Override navigation
         st.session_state.navigate_to = prev_drug
         st.session_state.last_drug = prev_drug
 
         st.rerun()
 
 with col2:
-    if st.button("Next →"):
-        # Save responses (your existing code)
+    st.write("")
+
+with col3:
+    if st.button("Next →", use_container_width=True):
         new_data = {
             UI_TO_DB["Q1"]: Q1_map.get(Q1, "") if Q1 else "",
             UI_TO_DB["Q2"]: Q2_internal,
@@ -231,6 +234,7 @@ with col2:
             {"email": email},
             {"$set": {"last_drug": current_drug}}
         )
+
         st.session_state.navigate_to = None
         st.session_state.last_drug = current_drug
 
