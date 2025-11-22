@@ -1,6 +1,7 @@
 import streamlit as st
 from pymongo import MongoClient
 
+
 def run_annotation(assigned_disease):
 
     # hide Streamlit sidebar
@@ -32,6 +33,11 @@ def run_annotation(assigned_disease):
 
     drug_map = doc["drug_map"]
 
+    def is_completed(drug):
+        q = drug_map[drug].get("questionnaire", {})
+        return not any(v in ["", None, [], {}] for v in q.values())
+
+
     # pick next drug
     def get_next_drug():
         drug_names = list(drug_map.keys())
@@ -60,6 +66,35 @@ def run_annotation(assigned_disease):
     if current_drug is None:
         st.success("🎉 All drugs annotated!")
         st.stop()
+
+    drug_list = list(drug_map.keys())
+    st.sidebar.title("Drugs")
+
+    for drug in drug_list:
+        done = is_completed(drug)
+
+        # highlight active drug
+        if drug == current_drug:
+            st.sidebar.markdown(
+                f"""
+                <div style="
+                    padding:8px;
+                    background:#e7f0ff;
+                    border-radius:6px;
+                    margin-bottom:4px;
+                ">
+                👉 <strong>{drug}</strong> {'✔️' if done else '⏳'}
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+
+        else:
+            label = f"{drug} {'✔️' if done else '⏳'}"
+            if st.sidebar.button(label, key=f"nav_{drug}", use_container_width=True):
+                st.session_state.navigate_to = drug
+                st.session_state.last_drug = drug
+                st.rerun()
 
     st.title(f"{assigned_disease.title()} — Drug Annotation")
 
@@ -237,6 +272,9 @@ def run_annotation(assigned_disease):
                 {"email": email},
                 {"$set": {"last_drug": current_drug}}
             )
+
+            doc = diseases_collection.find_one({"disease": assigned_disease})
+            drug_map = doc["drug_map"]
 
             st.session_state.navigate_to = None
             st.session_state.last_drug = current_drug
