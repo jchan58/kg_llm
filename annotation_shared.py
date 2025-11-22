@@ -112,13 +112,12 @@ def run_annotation(assigned_disease):
     ]
 
     FDA_map = {
-        "FDA-Approved": "FDA_approved_for_[Disease]",
+        "FDA-Approved": f"FDA_approved_for_{assigned_disease.lower()}",
         "FDA-Approved for other diseases": "FDA_approved_for_other_disease",
         "No": "Not_FDA_approved",
     }
 
     FDA_rev = {v: k for k, v in FDA_map.items()}
-
     prev_fda_raw = questionnaire.get(UI_TO_DB["Q2_FDA"], None)
     prev_fda_label = FDA_rev.get(prev_fda_raw, None)
 
