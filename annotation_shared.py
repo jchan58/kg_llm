@@ -78,8 +78,6 @@ def run_annotation(assigned_disease):
             st.markdown(f"- {bullet}")
 
     questionnaire = drug_map[current_drug]["questionnaire"]
-
-    # ---------- MAPPINGS ----------
     UI_TO_DB = {
         "Q1": "Q3_interest",
         "Q2_FDA": "Q1_FDA_status",
@@ -95,13 +93,9 @@ def run_annotation(assigned_disease):
     Q1_rev = {
         "Of_interest": "Of interest",
         "Not_of_interest": "Not of interest",
-        "Have_already_tested (or FDA-approved)": "Have already tested (or FDA-approved)",
+        "Have_already_tested (or FDA-approved)": "Have already tested (or FDA-approved)" 
     }
-    Q1_map = {
-        "Of interest": "Of_interest",
-        "Not of interest": "Not_of_interest",
-        "Have already tested (or FDA-approved)": "Have_already_tested (or FDA-approved)",
-    }
+
     prev_q1_raw = questionnaire.get(UI_TO_DB["Q1"], None)
     prev_q1_label = Q1_rev.get(prev_q1_raw, None)
 
@@ -111,7 +105,6 @@ def run_annotation(assigned_disease):
         index=Q1_options.index(prev_q1_label) if prev_q1_label in Q1_options else None,
     )
 
-    ### ---------- Q2 (single choice, prefilled) ----------
     FDA_options = [
         "FDA-Approved",
         "FDA-Approved for other diseases",
@@ -218,7 +211,7 @@ def run_annotation(assigned_disease):
     with col3:
         if st.button("Next →", use_container_width=True):
             new_data = {
-                UI_TO_DB["Q1"]: Q1_map[Q1_value],
+                UI_TO_DB["Q1"]: Q1_value,
                 UI_TO_DB["Q2_FDA"]: FDA_map.get(Q2_FDA_value, ""),
                 UI_TO_DB["Q3_status"]: Q3_internal,
                 UI_TO_DB["Q4_refs"]: Q4_refs,
