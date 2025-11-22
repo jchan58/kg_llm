@@ -91,13 +91,17 @@ def run_annotation(assigned_disease):
         "Q8_note": "Q9_note",
     }
 
-    Q1_options = ["Of interest", "Not of interest", "Have already tested"]
+    Q1_options = ["Of interest", "Not of interest", "Have already tested (or FDA-approved)"]
     Q1_rev = {
         "Of_interest": "Of interest",
         "Not_of_interest": "Not of interest",
-        "Have_already_tested (or FDA-approved)": "Have already tested",
+        "Have_already_tested (or FDA-approved)": "Have already tested (or FDA-approved)",
     }
-
+    Q1_map = {
+        "Of interest": "Of_interest",
+        "Not of interest": "Not_of_interest",
+        "Have already tested (or FDA-approved)": "Have_already_tested (or FDA-approved)",
+    }
     prev_q1_raw = questionnaire.get(UI_TO_DB["Q1"], None)
     prev_q1_label = Q1_rev.get(prev_q1_raw, None)
 
@@ -214,7 +218,7 @@ def run_annotation(assigned_disease):
     with col3:
         if st.button("Next →", use_container_width=True):
             new_data = {
-                UI_TO_DB["Q1"]: Q1_value,
+                UI_TO_DB["Q1"]: Q1_map[Q1_value],
                 UI_TO_DB["Q2_FDA"]: FDA_map.get(Q2_FDA_value, ""),
                 UI_TO_DB["Q3_status"]: Q3_internal,
                 UI_TO_DB["Q4_refs"]: Q4_refs,
