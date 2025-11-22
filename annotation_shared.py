@@ -32,11 +32,21 @@ def run_annotation(assigned_disease):
         st.stop()
 
     drug_map = doc["drug_map"]
+    updates_needed = {}
+    for drug, data in drug_map.items():
+        if "completed" not in data:
+            updates_needed[f"drug_map.{drug}.completed"] = False
+
+    if updates_needed:
+        diseases_collection.update_one(
+            {"disease": assigned_disease},
+            {"$set": updates_needed}
+        )
+        doc = diseases_collection.find_one({"disease": assigned_disease})
+        drug_map = doc["drug_map"]
 
     def is_completed(drug):
-        q = drug_map[drug].get("questionnaire", {})
-        return not any(v in ["", None, [], {}] for v in q.values())
-
+           return drug_map[drug].get("completed", False)
 
     # pick next drug
     def get_next_drug():
@@ -83,14 +93,14 @@ def run_annotation(assigned_disease):
                     border-radius:6px;
                     margin-bottom:4px;
                 ">
-                👉 <strong>{drug}</strong> {'✔️' if done else '⏳'}
+                👉 <strong>{drug}</strong> {'✔️' if done else ''}
                 </div>
                 """,
                 unsafe_allow_html=True
             )
 
         else:
-            label = f"{drug} {'✔️' if done else '⏳'}"
+            label = f"{drug} {'✔️' if done else ''}"
             if st.sidebar.button(label, key=f"nav_{drug}", use_container_width=True):
                 st.session_state.navigate_to = drug
                 st.session_state.last_drug = drug
@@ -268,11 +278,15 @@ def run_annotation(assigned_disease):
                     {"$set": updates}
                 )
 
+            diseases_collection.update_one(
+                {"disease": assigned_disease},
+                {"$set": {f"drug_map.{current_drug}.completed": True}}
+            )
+
             users_collection.update_one(
                 {"email": email},
                 {"$set": {"last_drug": current_drug}}
             )
-
             doc = diseases_collection.find_one({"disease": assigned_disease})
             drug_map = doc["drug_map"]
 
