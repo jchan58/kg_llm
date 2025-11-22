@@ -6,7 +6,7 @@ MONGO_URI = st.secrets["MONGO_URI"]
 client = MongoClient(MONGO_URI)
 db = client["kgxllm"]
 collection = db["diseases"]
-jsonl_file = "drug_results\glioblastoma.merged.jsonl"
+jsonl_file = "drug_results\melanoma.merged.jsonl"
 
 drug_map = {}
 with open(jsonl_file, "r", encoding="utf-8") as file:
@@ -19,14 +19,14 @@ with open(jsonl_file, "r", encoding="utf-8") as file:
         drug_name = object.get("drug")
         drug_map[drug_name] = object 
 
-glioblastoma_doc = {
+melanoma_doc = {
     "disease": object['disease'].strip().lower(), 
     "drug_map": drug_map
 }
 
 collection.update_one(
-    {"disease": "glioblastoma"},
-    {"$set": glioblastoma_doc},
+    {"disease": "melanoma"},
+    {"$set": melanoma_doc},
     upsert=True
 )
-print(f"Uploaded glioblastoma with {len(drug_map)} drugs.")
+print(f"Uploaded melanoma with {len(drug_map)} drugs.")
