@@ -124,10 +124,9 @@ def run_annotation(assigned_disease):
     Q2_FDA_value = st.radio(
         "Q2. What is the current FDA status?",
         FDA_options,
-        index=FDA_options.index(prev_fda_label) if prev_fda_label in FDA_options else None,
+        index=FDA_options.index(prev_fda_label) if prev_fda_label in FDA_options else 0,
     )
 
-    ### ---------- Q3 (single choice, prefilled) ----------
     STATUS_labels = [
         "FDA-Approved",
         "Positive clinical outcomes",
@@ -154,6 +153,8 @@ def run_annotation(assigned_disease):
 
     # prefill
     prev_q3_raw = questionnaire.get(UI_TO_DB["Q3_status"], None)
+    if isinstance(prev_q3_raw, str) and prev_q3_raw.startswith("FDA_approved"):
+        prev_q3_raw = "FDA_approved_for_other_disease"
     STATUS_rev = {v: k for k, v in STATUS_map.items()}
     prev_q3_label = STATUS_rev.get(prev_q3_raw, None)
 
