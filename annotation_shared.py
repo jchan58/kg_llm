@@ -89,11 +89,11 @@ def run_annotation(assigned_disease):
         "Q8_note": "Q9_note",
     }
 
-    Q1_options = ["Of interest", "Not of interest", "Have already tested"]
+    Q1_options = ["Of interest", "Not of interest", "Have already tested (or FDA-approved)"]
     Q1_rev = {
         "Of_interest": "Of interest",
         "Not_of_interest": "Not of interest",
-        "Have_already_tested": "Have already tested" 
+        "Have_already_tested (or FDA-approved)": "Have already tested (or FDA-approved)" 
     }
 
     prev_q1_raw = questionnaire.get(UI_TO_DB["Q1"], None)
