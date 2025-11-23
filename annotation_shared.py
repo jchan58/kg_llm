@@ -224,37 +224,45 @@ def run_annotation(assigned_disease):
     @st.dialog("", width="small", dismissible=False)
     def confirm_dialog():
         st.markdown("""
-        `<style>
-        /* Make the buttons wider */
-        .stButton > button {
-            width: 120px !important;
-            padding: 0.5rem 1rem !important;
-            font-weight: 600 !important;
-            border-radius: 8px !important;
-            font-size: 0.95rem !important;
-        }
+            <style>
+            /* Make buttons larger */
+            .stButton > button {
+                width: 130px !important;
+                padding: 0.55rem 1rem !important;
+                font-weight: 600 !important;
+                border-radius: 8px !important;
+                font-size: 0.95rem !important;
+            }
 
-        /* Pink NO button */
-        #no_btn button {
-            background-color: #ffb3c6 !important;
-            color: black !important;
-        }
-        #no_btn button:hover {
-            background-color: #ff8eab !important;
-        }
-        #yes_btn button {
-            background-color: #b6eeb3 !important;
-            color: black !important;
-        }
-        #yes_btn button:hover {
-            background-color: #9fe79b !important;
-        }
-        </style>`
-    """, unsafe_allow_html=True)
+            /* Pink NO button */
+            div[data-testid="stDialog"] div[id="no_btn"] > button {
+                background-color: #ffb3c6 !important;
+                color: black !important;
+                border: none !important;
+            }
+            div[data-testid="stDialog"] div[id="no_btn"] > button:hover {
+                background-color: #ff8eab !important;
+            }
+
+            /* Green YES button */
+            div[data-testid="stDialog"] div[id="yes_btn"] > button {
+                background-color: #b6eeb3 !important;
+                color: black !important;
+                border: none !important;
+            }
+            div[data-testid="stDialog"] div[id="yes_btn"] > button:hover {
+                background-color: #9fe79b !important;
+            }
+            </style>
+        """, unsafe_allow_html=True)
+
+        # centered prompt
         st.markdown(
             "<div style='text-align:center;'>Are you sure you want to move onto the next drug?</div>",
             unsafe_allow_html=True
         )
+
+        # 4 columns for true centering
         col_sp1, col_no, col_yes, col_sp2 = st.columns([1, 1, 1, 1])
 
         with col_no:
@@ -269,6 +277,7 @@ def run_annotation(assigned_disease):
 
         if yes_clicked:
             st.session_state.confirm_next = False
+
             new_data = {
                 UI_TO_DB["Q1"]: Q1_value,
                 UI_TO_DB["Q2_FDA"]: FDA_map.get(Q2_FDA_value, ""),
@@ -301,9 +310,6 @@ def run_annotation(assigned_disease):
                 {"email": email},
                 {"$set": {"last_drug": current_drug}}
             )
-
-            doc = diseases_collection.find_one({"disease": assigned_disease})
-            drug_map = doc["drug_map"]
 
             st.session_state.navigate_to = None
             st.session_state.last_drug = current_drug
