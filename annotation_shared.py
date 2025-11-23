@@ -221,8 +221,36 @@ def run_annotation(assigned_disease):
         value=questionnaire.get(UI_TO_DB["Q8_note"], "")
     )
 
-    @st.dialog("Confirm", width="small", dismissible=False)
+    @st.dialog("", width="small", dismissible=False)
     def confirm_dialog():
+        st.markdown("""
+        `<style>
+        /* Make the buttons wider */
+        .stButton > button {
+            width: 120px !important;
+            padding: 0.5rem 1rem !important;
+            font-weight: 600 !important;
+            border-radius: 8px !important;
+            font-size: 0.95rem !important;
+        }
+
+        /* Pink NO button */
+        #no_btn button {
+            background-color: #ffb3c6 !important;
+            color: black !important;
+        }
+        #no_btn button:hover {
+            background-color: #ff8eab !important;
+        }
+        #yes_btn button {
+            background-color: #b6eeb3 !important;
+            color: black !important;
+        }
+        #yes_btn button:hover {
+            background-color: #9fe79b !important;
+        }
+        </style>`
+    """, unsafe_allow_html=True)
         st.markdown(
             "<div style='text-align:center;'>Are you sure you want to move onto the next drug?</div>",
             unsafe_allow_html=True
