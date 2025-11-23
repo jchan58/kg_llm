@@ -3,7 +3,6 @@ from pymongo import MongoClient
 
 
 def run_annotation(assigned_disease):
-
     # hide Streamlit sidebar
     st.markdown("""
         <style>
@@ -12,6 +11,9 @@ def run_annotation(assigned_disease):
         </style>
     """, unsafe_allow_html=True)
 
+    # confirmation of moving on to next drug 
+    if "confirm_next" not in st.session_state: 
+        st.session_state.confirm_next = False
     # auto email (no login)
     email = f"auto_user_{assigned_disease}"
     st.session_state.user_email = email
@@ -222,6 +224,60 @@ def run_annotation(assigned_disease):
         value=questionnaire.get(UI_TO_DB["Q8_note"], "")
     )
 
+    @st.dialog("Confirm", width="small", dismissible=True)
+    def confirm_dialog():
+        st.write("Are you sure you want to go to the next drug?")
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+            if st.button("Cancel"):
+                st.session_state.confirm_next = False
+                st.rerun()
+
+        with col2:
+            if st.button("Yes, next drug"):
+                st.session_state.confirm_next = False
+                new_data = {
+                UI_TO_DB["Q1"]: Q1_value,
+                UI_TO_DB["Q2_FDA"]: FDA_map.get(Q2_FDA_value, ""),
+                UI_TO_DB["Q3_status"]: Q3_internal,
+                UI_TO_DB["Q4_refs"]: Q4_refs,
+                UI_TO_DB["Q5_combo"]: (Q5_combo == "Yes") if Q5_combo else None,
+                UI_TO_DB["Q6_reason"]: (Q6_reason == "Yes") if Q6_reason else None,
+                UI_TO_DB["Q7_neuro"]: (Q7_neuro == "Yes") if Q7_neuro else None,
+                UI_TO_DB["Q8_note"]: Q8_note,
+                }
+
+                updates = {
+                    f"drug_map.{current_drug}.questionnaire.{key}": val
+                    for key, val in new_data.items()
+                    if val != questionnaire.get(key, None)
+                }
+
+                if updates:
+                    diseases_collection.update_one(
+                        {"disease": assigned_disease},
+                        {"$set": updates}
+                    )
+
+                diseases_collection.update_one(
+                    {"disease": assigned_disease},
+                    {"$set": {f"drug_map.{current_drug}.completed": True}}
+                )
+
+                users_collection.update_one(
+                    {"email": email},
+                    {"$set": {"last_drug": current_drug}}
+                )
+                doc = diseases_collection.find_one({"disease": assigned_disease})
+                drug_map = doc["drug_map"]
+
+                st.session_state.navigate_to = None
+                st.session_state.last_drug = current_drug
+                st.rerun()
+
+
     st.markdown("<div style='margin-top: 2rem;'></div>", unsafe_allow_html=True)
     col1, col2, col3 = st.columns([1, 6, 1])
 
@@ -240,41 +296,9 @@ def run_annotation(assigned_disease):
 
     with col3:
         if st.button("Next →", use_container_width=True):
-            new_data = {
-                UI_TO_DB["Q1"]: Q1_value,
-                UI_TO_DB["Q2_FDA"]: FDA_map.get(Q2_FDA_value, ""),
-                UI_TO_DB["Q3_status"]: Q3_internal,
-                UI_TO_DB["Q4_refs"]: Q4_refs,
-                UI_TO_DB["Q5_combo"]: (Q5_combo == "Yes") if Q5_combo else None,
-                UI_TO_DB["Q6_reason"]: (Q6_reason == "Yes") if Q6_reason else None,
-                UI_TO_DB["Q7_neuro"]: (Q7_neuro == "Yes") if Q7_neuro else None,
-                UI_TO_DB["Q8_note"]: Q8_note,
-            }
-
-            updates = {
-                f"drug_map.{current_drug}.questionnaire.{key}": val
-                for key, val in new_data.items()
-                if val != questionnaire.get(key, None)
-            }
-
-            if updates:
-                diseases_collection.update_one(
-                    {"disease": assigned_disease},
-                    {"$set": updates}
-                )
-
-            diseases_collection.update_one(
-                {"disease": assigned_disease},
-                {"$set": {f"drug_map.{current_drug}.completed": True}}
-            )
-
-            users_collection.update_one(
-                {"email": email},
-                {"$set": {"last_drug": current_drug}}
-            )
-            doc = diseases_collection.find_one({"disease": assigned_disease})
-            drug_map = doc["drug_map"]
-
-            st.session_state.navigate_to = None
-            st.session_state.last_drug = current_drug
+            st.session_state.confirm_next = True
             st.rerun()
+
+    if st.session_state.confirm_next:
+        confirm_dialog()
+            
