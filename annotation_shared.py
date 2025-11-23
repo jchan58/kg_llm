@@ -227,13 +227,12 @@ def run_annotation(assigned_disease):
             "<div style='text-align:center;'>Are you sure you want to move onto the next drug?</div>",
             unsafe_allow_html=True
         )
+        col_sp1, col_no, col_yes, col_sp2 = st.columns([1, 1, 1, 1])
 
-        col1, col2, _ = st.columns([1, 1, 0.2])
-
-        with col1:
+        with col_no:
             no_clicked = st.button("No", key="no_btn")
 
-        with col2:
+        with col_yes:
             yes_clicked = st.button("Yes", key="yes_btn")
 
         if no_clicked:
@@ -242,7 +241,6 @@ def run_annotation(assigned_disease):
 
         if yes_clicked:
             st.session_state.confirm_next = False
-
             new_data = {
                 UI_TO_DB["Q1"]: Q1_value,
                 UI_TO_DB["Q2_FDA"]: FDA_map.get(Q2_FDA_value, ""),
