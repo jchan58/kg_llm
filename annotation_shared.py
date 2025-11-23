@@ -221,42 +221,37 @@ def run_annotation(assigned_disease):
         value=questionnaire.get(UI_TO_DB["Q8_note"], "")
     )
 
-    @st.dialog(" ", width="small", dismissible=False)
+    @st.dialog("Confirm your answers", width="small", dismissible=False)
     def confirm_dialog():
         st.markdown("""
-            <style>
-            /* Make buttons larger */
-            .stButton > button {
-                width: 130px !important;
-                padding: 0.55rem 1rem !important;
-                font-weight: 600 !important;
-                border-radius: 8px !important;
-                font-size: 0.95rem !important;
-            }
+        <style>
+        .stButton > button {
+            width: 130px !important;
+            padding: 0.55rem 1rem !important;
+            font-weight: 600 !important;
+            border-radius: 8px !important;
+            font-size: 0.95rem !important;
+        }
 
-            /* Pink NO button */
-            div[data-testid="stDialog"] div[id="no_btn"] > button {
-                background-color: #ffb3c6 !important;
-                color: black !important;
-                border: none !important;
-            }
-            div[data-testid="stDialog"] div[id="no_btn"] > button:hover {
-                background-color: #ff8eab !important;
-            }
+        div[data-testid="stDialog"] div[id="no_btn"] > button {
+            background-color: #ffb3c6 !important;
+            color: black !important;
+            border: none !important;
+        }
+        div[data-testid="stDialog"] div[id="no_btn"] > button:hover {
+            background-color: #ff8eab !important;
+        }
 
-            /* Green YES button */
-            div[data-testid="stDialog"] div[id="yes_btn"] > button {
-                background-color: #b6eeb3 !important;
-                color: black !important;
-                border: none !important;
-            }
-            div[data-testid="stDialog"] div[id="yes_btn"] > button:hover {
-                background-color: #9fe79b !important;
-            }
-            </style>
-        """, unsafe_allow_html=True)
-
-        # centered prompt
+        div[data-testid="stDialog"] div[id="yes_btn"] > button {
+            background-color: #b6eeb3 !important;
+            color: black !important;
+            border: none !important;
+        }
+        div[data-testid="stDialog"] div[id="yes_btn"] > button:hover {
+            background-color: #9fe79b !important;
+        }
+        </style>
+    """, unsafe_allow_html=True)
         st.markdown(
             "<div style='text-align:center;'>Are you sure you want to move onto the next drug?</div>",
             unsafe_allow_html=True
