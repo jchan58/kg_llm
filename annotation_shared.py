@@ -94,14 +94,11 @@ def run_annotation(assigned_disease):
                 st.rerun()
 
     st.title(f"{assigned_disease.title()} — Drug Annotation")
-
-    # Progress
     drug_list = list(drug_map.keys())
     total_drugs = len(drug_list)
     current_index = drug_list.index(current_drug) + 1
     st.markdown(f"### Progress: {current_index}/{total_drugs}")
     st.progress(current_index / total_drugs)
-
     st.header(f"Drug: **{current_drug}**")
 
     # rationale
@@ -224,20 +221,29 @@ def run_annotation(assigned_disease):
         value=questionnaire.get(UI_TO_DB["Q8_note"], "")
     )
 
-    @st.dialog("Confirm", width="small", dismissible=True)
+    @st.dialog("Confirm", width="small", dismissible=False)
     def confirm_dialog():
-        st.write("Are you sure you want to move onto the next drug?")
-        col1, col2 = st.columns(2)
+        st.markdown(
+            "<div style='text-align:center;'>Are you sure you want to move onto the next drug?</div>",
+            unsafe_allow_html=True
+        )
+
+        col1, col2, _ = st.columns([1, 1, 0.2])
 
         with col1:
-            if st.button("No"):
-                st.session_state.confirm_next = False
-                st.rerun()
+            no_clicked = st.button("No", key="no_btn")
 
         with col2:
-            if st.button("Yes"):
-                st.session_state.confirm_next = False
-                new_data = {
+            yes_clicked = st.button("Yes", key="yes_btn")
+
+        if no_clicked:
+            st.session_state.confirm_next = False
+            st.rerun()
+
+        if yes_clicked:
+            st.session_state.confirm_next = False
+
+            new_data = {
                 UI_TO_DB["Q1"]: Q1_value,
                 UI_TO_DB["Q2_FDA"]: FDA_map.get(Q2_FDA_value, ""),
                 UI_TO_DB["Q3_status"]: Q3_internal,
@@ -246,35 +252,36 @@ def run_annotation(assigned_disease):
                 UI_TO_DB["Q6_reason"]: (Q6_reason == "Yes") if Q6_reason else None,
                 UI_TO_DB["Q7_neuro"]: (Q7_neuro == "Yes") if Q7_neuro else None,
                 UI_TO_DB["Q8_note"]: Q8_note,
-                }
+            }
 
-                updates = {
-                    f"drug_map.{current_drug}.questionnaire.{key}": val
-                    for key, val in new_data.items()
-                    if val != questionnaire.get(key, None)
-                }
+            updates = {
+                f"drug_map.{current_drug}.questionnaire.{key}": val
+                for key, val in new_data.items()
+                if val != questionnaire.get(key, None)
+            }
 
-                if updates:
-                    diseases_collection.update_one(
-                        {"disease": assigned_disease},
-                        {"$set": updates}
-                    )
-
+            if updates:
                 diseases_collection.update_one(
                     {"disease": assigned_disease},
-                    {"$set": {f"drug_map.{current_drug}.completed": True}}
+                    {"$set": updates}
                 )
 
-                users_collection.update_one(
-                    {"email": email},
-                    {"$set": {"last_drug": current_drug}}
-                )
-                doc = diseases_collection.find_one({"disease": assigned_disease})
-                drug_map = doc["drug_map"]
+            diseases_collection.update_one(
+                {"disease": assigned_disease},
+                {"$set": {f"drug_map.{current_drug}.completed": True}}
+            )
 
-                st.session_state.navigate_to = None
-                st.session_state.last_drug = current_drug
-                st.rerun()
+            users_collection.update_one(
+                {"email": email},
+                {"$set": {"last_drug": current_drug}}
+            )
+
+            doc = diseases_collection.find_one({"disease": assigned_disease})
+            drug_map = doc["drug_map"]
+
+            st.session_state.navigate_to = None
+            st.session_state.last_drug = current_drug
+            st.rerun()
 
 
     st.markdown("<div style='margin-top: 2rem;'></div>", unsafe_allow_html=True)
