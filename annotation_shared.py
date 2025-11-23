@@ -221,23 +221,8 @@ def run_annotation(assigned_disease):
         value=questionnaire.get(UI_TO_DB["Q8_note"], "")
     )
 
-    @st.dialog("Confirm your answers", width="small", dismissible=False)
+    @st.dialog(" ", width="small", dismissible=False)
     def confirm_dialog():
-        st.markdown("""
-        <style>
-        /* Center the dialog title */
-        div[data-testid="stDialog"] h1 {
-            text-align: center !important;
-            width: 100%;
-        }
-
-        /* Remove default margins to truly center */
-        div[data-testid="stDialog"] h1 {
-            margin-left: auto !important;
-            margin-right: auto !important;
-        }
-        </style>
-        """, unsafe_allow_html=True)
         st.markdown("""
         <style>
         .stButton > button {
