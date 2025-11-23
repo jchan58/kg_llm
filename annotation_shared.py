@@ -225,6 +225,21 @@ def run_annotation(assigned_disease):
     def confirm_dialog():
         st.markdown("""
         <style>
+        /* Center the dialog title */
+        div[data-testid="stDialog"] h1 {
+            text-align: center !important;
+            width: 100%;
+        }
+
+        /* Remove default margins to truly center */
+        div[data-testid="stDialog"] h1 {
+            margin-left: auto !important;
+            margin-right: auto !important;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+        st.markdown("""
+        <style>
         .stButton > button {
             width: 130px !important;
             padding: 0.55rem 1rem !important;
