@@ -226,17 +226,16 @@ def run_annotation(assigned_disease):
 
     @st.dialog("Confirm", width="small", dismissible=True)
     def confirm_dialog():
-        st.write("Are you sure you want to go to the next drug?")
-
+        st.write("Are you sure you want to move onto the next drug?")
         col1, col2 = st.columns(2)
 
         with col1:
-            if st.button("Cancel"):
+            if st.button("No"):
                 st.session_state.confirm_next = False
                 st.rerun()
 
         with col2:
-            if st.button("Yes, next drug"):
+            if st.button("Yes"):
                 st.session_state.confirm_next = False
                 new_data = {
                 UI_TO_DB["Q1"]: Q1_value,
