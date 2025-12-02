@@ -106,7 +106,7 @@ def run_annotation(assigned_disease):
         for bullet in drug_map[current_drug].get("rationale_bullets", []):
             st.markdown(f"- {bullet}")
 
-    questionnaire = drug_map[current_drug]["questionnaire"]
+    questionnaire = drug_map[current_drug]
     UI_TO_DB = {
         "Q1": "Q3_interest",
         "Q2_FDA": "Q1_FDA_status",
@@ -235,7 +235,7 @@ def run_annotation(assigned_disease):
             }
 
             updates = {
-                f"drug_map.{current_drug}.questionnaire.{key}": val
+                f"drug_map.{current_drug}.{key}": val
                 for key, val in new_data.items()
                 if val != questionnaire.get(key, None)
             }
