@@ -144,8 +144,8 @@ def run_annotation(assigned_disease):
     else:
         refs_md = "No clinical trial references found."
 
-    st.markdown("### Clinical Trials:")
-    st.markdown(refs_md)
+    with st.expander("Clinical Trials"):
+        st.markdown(refs_md)
 
     prev_Q2 = (
     [questionnaire["Q2"]["selection"]] 
