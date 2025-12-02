@@ -126,7 +126,7 @@ def run_annotation(assigned_disease):
     <div style='font-weight:600; font-size:1.1rem;'>
     Q1. What is the latest status of this drug for this disease? (single choice)
     </div>
-    <div style='color:#555; font-size:0.9rem; margin-bottom:0.4rem;'>
+    <div style='color:#555; font-size:0.9rem;'>
     *(If, and only if, you select “No,” please proceed to Q2.
     For all other selections, please go directly to Q4.)*
     </div>
