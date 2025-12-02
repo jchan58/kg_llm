@@ -124,7 +124,7 @@ def run_annotation(assigned_disease):
 
     st.markdown("""
     **Q1. What is the latest status of this drug for this disease? (single choice)**  
-    <span style='color:#555; font-size:1.4rem;'>
+    <span style='color:#555; font-size:0.2rem;'>
     *(If, and only if, you select “No,” please proceed to Q2.  
     For all other selections, please go directly to Q4.)*
     </span>
@@ -154,7 +154,7 @@ def run_annotation(assigned_disease):
 
     st.markdown("""
     **Q2. What is the pre-clinical result for testing this drug in this disease? (multi-choice)**  
-    <div style='color:#555; font-size:1.4rem;'>
+    <div style='color:#555; font-size:0.2rem;'>
     *(If “Rarely discussed” is selected, proceed to Q3. For all other selections, skip and go directly to Q4)*
     </div>
     """, unsafe_allow_html=True)
