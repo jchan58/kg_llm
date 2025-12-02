@@ -177,7 +177,7 @@ def run_annotation(assigned_disease):
     )
 
     literature_refs = []
-    if "Q1" in questionnaire and isinstance(questionnaire["Q2"], dict):
+    if "Q2" in questionnaire and isinstance(questionnaire["Q2"], dict):
         literature_refs = questionnaire["Q2"].get("literature_references", [])
 
     if literature_refs:
