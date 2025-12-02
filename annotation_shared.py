@@ -104,9 +104,9 @@ def run_annotation(assigned_disease):
     st.title(f"{assigned_disease.title()} — Drug Annotation")
     drug_list = list(drug_map.keys())
     total_drugs = len(drug_list)
-    current_index = drug_list.index(current_drug) + 1
-    st.markdown(f"### Progress: {current_index}/{total_drugs}")
-    st.progress(current_index / total_drugs)
+    completed_count = sum(1 for drug in drug_list if is_completed(drug))
+    st.markdown(f"### Progress: {completed_count}/{total_drugs} completed")
+    st.progress(completed_count / total_drugs)
     st.header(f"Drug: **{current_drug}**")
     questionnaire = drug_map[current_drug]
     prev_Q1 = (
