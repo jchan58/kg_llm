@@ -126,6 +126,7 @@ def run_annotation(assigned_disease):
     Q1_label = "**Q1. What is the latest status of this drug for this disease? (single choice)**"
     Q1_value = st.radio(
         Q1_label,
+        "(If, and only if, you select “No,” please proceed to Q2. For all other selections, please go directly to Q4.)",
         Q1_options,
         index=Q1_options.index(prev_Q1) if prev_Q1 in Q1_options else None
     )
