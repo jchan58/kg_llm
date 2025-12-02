@@ -126,13 +126,12 @@ def run_annotation(assigned_disease):
     <div style='font-weight:600; font-size:1.1rem;'>
     Q1. What is the latest status of this drug for this disease? (single choice)
     </div>
-    <div style='color:#555; font-size:0.9rem;'>
+    <div style='color:#555; font-size:0.9rem; margin-bottom:-6px;'>
     *(If, and only if, you select “No,” please proceed to Q2.
     For all other selections, please go directly to Q4.)*
     </div>
     """, unsafe_allow_html=True)
-
-    # Radio with empty label so it appears AFTER the block
+    st.markdown("<style> div[role='radiogroup'] { margin-top: -12px !important; } </style>", unsafe_allow_html=True)
     Q1_value = st.radio(
         "",
         Q1_options,
