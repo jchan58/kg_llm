@@ -35,4 +35,4 @@ def upload_disease(disease):
 
 
 if __name__ == "__main__":
-    upload_disease("pancreaticcancer")  
+    upload_disease("glioblastoma")  
