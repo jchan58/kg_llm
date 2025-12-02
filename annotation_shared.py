@@ -100,12 +100,6 @@ def run_annotation(assigned_disease):
     st.markdown(f"### Progress: {current_index}/{total_drugs}")
     st.progress(current_index / total_drugs)
     st.header(f"Drug: **{current_drug}**")
-
-    # rationale
-    with st.expander("GPT Rationale", expanded=True):
-        for bullet in drug_map[current_drug].get("rationale_bullets", []):
-            st.markdown(f"- {bullet}")
-
     questionnaire = drug_map[current_drug]
     UI_TO_DB = {
         "Q1": "Q3_interest",
