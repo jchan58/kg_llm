@@ -175,18 +175,18 @@ def run_annotation(assigned_disease):
         "</div>",
         unsafe_allow_html=True
     )
+
     literature_refs = []
-    if "Q2" in questionnaire and isinstance(questionnaire["Q2"], dict):
+    if "Q1" in questionnaire and isinstance(questionnaire["Q2"], dict):
         literature_refs = questionnaire["Q2"].get("literature_references", [])
 
-    literature_refs_text = "\n".join(literature_refs) if literature_refs else "No literature references found."
+    if literature_refs:
+        refs_md = "\n".join(f"- {bracket_url_to_md(ref)}" for ref in clinical_refs)
+    else:
+        refs_md = "No literature references found."
 
-    st.text_area(
-        "Revelant References:",
-        value=literature_refs_text,
-        height=150,
-        disabled=True
-    )
+    with st.expander("Literature References"):
+        st.markdown(refs_md)
 
     prev_Q3 = questionnaire.get("Q3_interest")
     Q3_value = st.radio(
