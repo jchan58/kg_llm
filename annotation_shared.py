@@ -1,6 +1,23 @@
 import streamlit as st
 from pymongo import MongoClient
+import re
 
+st.markdown("""
+<style>
+.ref-box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 6px;
+    background-color: #fafafa;
+    white-space: pre-wrap;
+    font-family: monospace;
+}
+</style>
+""", unsafe_allow_html=True)
+
+def bracket_linkify(ref: str) -> str:
+    """Turn [URL] into clickable markdown [URL](URL) while keeping text the same."""
+    return re.sub(r"\[(https?://[^\]]+)\]", r"[\1](\1)", ref)
 
 def run_annotation(assigned_disease):
     # hide Streamlit sidebar
@@ -128,22 +145,16 @@ def run_annotation(assigned_disease):
         index=Q1_options.index(prev_Q1) if prev_Q1 in Q1_options else None
     )
     clinical_refs = []
-
     if "Q1" in questionnaire and isinstance(questionnaire["Q1"], dict):
         clinical_refs = questionnaire["Q1"].get("clinicaltrial_references", [])
 
-    clinical_refs_text = (
-        "\n".join(f"• {ref}" for ref in clinical_refs)
-        if clinical_refs
-        else "No clinical trial references found."
-    )
+    if clinical_refs:
+        refs_md = "\n".join(f"- {bracket_linkify(ref)}" for ref in clinical_refs)
+    else:
+        refs_md = "No clinical trial references found."
 
-    st.text_area(
-        "Clinical Trials:",
-        value=clinical_refs_text,
-        height=150,
-        disabled=True
-    )
+    st.markdown("### Clinical Trials:")
+    st.markdown(f"<div class='ref-box'>{refs_md}</div>", unsafe_allow_html=True)
 
     prev_Q2 = (
     [questionnaire["Q2"]["selection"]] 
