@@ -124,7 +124,7 @@ def run_annotation(assigned_disease):
 
     st.markdown("""
     **Q1. What is the latest status of this drug for this disease? (single choice)**  
-    <span style='color:#555; font-size:0.9rem;'>
+    <span style='color:#555; font-size:1.0rem;'>
     *(If, and only if, you select “No,” please proceed to Q2.  
     For all other selections, please go directly to Q4.)*
     </span>
