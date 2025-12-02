@@ -154,9 +154,9 @@ def run_annotation(assigned_disease):
 
     st.markdown("""
     **Q2. What is the pre-clinical result for testing this drug in this disease? (multi-choice)**  
-    <span style='color:#555; font-size:1.4rem;'>
+    <div style='color:#555; font-size:1.4rem;'>
     *(If “Rarely discussed” is selected, proceed to Q3. For all other selections, skip and go directly to Q4)*
-    </span>
+    </div>
     """, unsafe_allow_html=True)
     Q2_value = st.multiselect(
         "",
