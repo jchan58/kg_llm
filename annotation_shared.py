@@ -128,9 +128,10 @@ def run_annotation(assigned_disease):
         index=Q1_options.index(prev_Q1) if prev_Q1 in Q1_options else None
     )
 
-    show_Q2 = (Q1_value == "No — No clinical trials identified for this drug in this disease")
     prev_Q2 = (
-        [questionnaire["Q2"]["selection"]] if "Q2" in questionnaire else []
+    [questionnaire["Q2"]["selection"]] 
+    if "Q2" in questionnaire and isinstance(questionnaire["Q2"], dict)
+    else questionnaire.get("Q2_preclinical_results", [])
     )
 
     Q2_options = [
@@ -144,29 +145,21 @@ def run_annotation(assigned_disease):
         "Irrelevant drugs",
     ]
 
-    if show_Q2:
-        Q2_value = st.multiselect(
-            "Q2. What is the pre-clinical result for testing this drug in this disease? (multi-choice)",
-            Q2_options,
-            default=[v for v in prev_Q2 if v in Q2_options]
-        )
-    else:
-        Q2_value = None
+    Q2_value = st.multiselect(
+        "Q2. What is the pre-clinical result for testing this drug in this disease? (multi-choice)",
+        Q2_options,
+        default=[v for v in prev_Q2 if v in Q2_options]
+    )
 
-    show_Q3 = show_Q2 and Q2_value and ("Rarely discussed" in Q2_value)
-    prev_Q3 = questionnaire.get("Q3_interest") or questionnaire.get("Q3")
 
-    # if the checked Rarely discussed
-    if show_Q3:
-        Q3_value = st.radio(
-            "Q3. If pre-clinical data are 'Rarely discussed,' is this drug of interest?",
-            ["Of interest", "Not of interest"],
-            index=["Of interest", "Not of interest"].index(prev_Q3)
-                if prev_Q3 in ["Of interest", "Not of interest"]
-                else None,
-        )
-    else:
-        Q3_value = None
+    prev_Q3 = questionnaire.get("Q3_interest")
+    Q3_value = st.radio(
+        "Q3. If pre-clinical data are 'Rarely discussed,' is this drug of interest?",
+        ["Of interest", "Not of interest"],
+        index=["Of interest", "Not of interest"].index(prev_Q3)
+            if prev_Q3 in ["Of interest", "Not of interest"]
+            else None,
+    )
 
     prev_Q4 = questionnaire.get("Q4_notes", "")
     Q4_value = st.text_area(
