@@ -181,7 +181,7 @@ def run_annotation(assigned_disease):
         literature_refs = questionnaire["Q2"].get("literature_references", [])
 
     if literature_refs:
-        refs_md = "\n".join(f"- {bracket_url_to_md(ref)}" for ref in clinical_refs)
+        refs_md = "\n".join(f"- {bracket_url_to_md(ref)}" for ref in literature_refs)
     else:
         refs_md = "No literature references found."
 
@@ -196,7 +196,6 @@ def run_annotation(assigned_disease):
             if prev_Q3 in ["Of interest", "Not of interest"]
             else None,
     )
-
 
     prev_Q4 = questionnaire.get("Q4_notes", "")
     Q4_value = st.text_area(
