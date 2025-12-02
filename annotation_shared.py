@@ -127,6 +127,12 @@ def run_annotation(assigned_disease):
         Q1_options,
         index=Q1_options.index(prev_Q1) if prev_Q1 in Q1_options else None
     )
+    st.markdown(
+        "<div style='color:#555; font-size:0.9rem; margin-top:-10px;'>"
+        "*(If, and only if, you select “No,” please proceed to Q2. For all other selections, please go directly to Q4.)*"
+        "</div>",
+        unsafe_allow_html=True
+    )
 
     prev_Q2 = (
     [questionnaire["Q2"]["selection"]] 
@@ -150,7 +156,12 @@ def run_annotation(assigned_disease):
         Q2_options,
         default=[v for v in prev_Q2 if v in Q2_options]
     )
-
+    st.markdown(
+        "<div style='color:#555; font-size:0.9rem; margin-top:-10px;'>"
+        "*(If “Rarely discussed” is selected, proceed to Q3. For all other selections, skip and go directly to Q4)*"
+        "</div>",
+        unsafe_allow_html=True
+    )
 
     prev_Q3 = questionnaire.get("Q3_interest")
     Q3_value = st.radio(
@@ -160,6 +171,7 @@ def run_annotation(assigned_disease):
             if prev_Q3 in ["Of interest", "Not of interest"]
             else None,
     )
+
 
     prev_Q4 = questionnaire.get("Q4_notes", "")
     Q4_value = st.text_area(
