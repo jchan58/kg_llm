@@ -101,16 +101,11 @@ def run_annotation(assigned_disease):
     st.progress(current_index / total_drugs)
     st.header(f"Drug: **{current_drug}**")
     questionnaire = drug_map[current_drug]
-    UI_TO_DB = {
-        "Q1": "Q3_interest",
-        "Q2_FDA": "Q1_FDA_status",
-        "Q3_status": "Q2_Research_status",
-        "Q4_refs": "Q8_supporting_evidence_references",
-        "Q5_combo": "Q4_combination_therapy",
-        "Q6_reason": "Q5_reasoning_makes_sense",
-        "Q7_neuro": "Q7_neurotoxicity_concern",
-        "Q8_note": "Q9_note",
-    }
+    prev_Q1 = (
+    questionnaire["Q1"]["selection"]
+    if "Q1" in questionnaire and isinstance(questionnaire["Q1"], dict)
+        else None
+    )
 
     Q1_options = [
         "FDA-Approved to liver cancer",
@@ -123,14 +118,29 @@ def run_annotation(assigned_disease):
         "Failed in any phases",
         "No — No clinical trials identified for this drug in this disease",
     ]
-    prev_Q1 = questionnaire.get("Q1_latest_status", None)
+
+    # Normalize short "No"
+    if prev_Q1 == "No":
+        prev_Q1 = "No — No clinical trials identified for this drug in this disease"
+
     Q1_value = st.radio(
         "Q1. What is the latest status of this drug for this disease? (single choice)",
         Q1_options,
         index=Q1_options.index(prev_Q1) if prev_Q1 in Q1_options else None
     )
 
+    ### ================================
+    ### CONDITIONALLY SHOW Q2
+    ### ================================
     show_Q2 = (Q1_value == "No — No clinical trials identified for this drug in this disease")
+
+    ### ================================
+    ### Q2 — Preclinical Results
+    ### ================================
+    prev_Q2 = (
+        [questionnaire["Q2"]["selection"]] if "Q2" in questionnaire else []
+    )
+
     Q2_options = [
         "Positive result in animal study",
         "Negative result in animal study",
@@ -141,7 +151,6 @@ def run_annotation(assigned_disease):
         "Rarely discussed",
         "Irrelevant drugs",
     ]
-    prev_Q2 = questionnaire.get("Q2_preclinical_results", [])
 
     if show_Q2:
         Q2_value = st.multiselect(
@@ -152,24 +161,34 @@ def run_annotation(assigned_disease):
     else:
         Q2_value = None
 
+    ### ================================
+    ### Q3 — Only shown when Q2 contains “Rarely discussed”
+    ### ================================
     show_Q3 = show_Q2 and Q2_value and ("Rarely discussed" in Q2_value)
+
     prev_Q3 = questionnaire.get("Q3_interest", None)
 
     if show_Q3:
         Q3_value = st.radio(
             "Q3. If pre-clinical data are 'Rarely discussed,' is this drug of interest?",
             ["Of interest", "Not of interest"],
-            index=["Of interest","Not of interest"].index(prev_Q3) if prev_Q3 else None
+            index=["Of interest", "Not of interest"].index(prev_Q3) if prev_Q3 in ["Of interest", "Not of interest"] else None
         )
     else:
         Q3_value = None
 
+    ### ================================
+    ### Q4 — Notes
+    ### ================================
     prev_Q4 = questionnaire.get("Q4_notes", "")
+
     Q4_value = st.text_area(
         "Q4. Additional Notes",
         value=prev_Q4,
         height=200
     )
+
+    
 
     @st.dialog(" ", width="small", dismissible=False)
     def confirm_dialog():
