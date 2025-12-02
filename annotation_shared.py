@@ -130,10 +130,17 @@ def run_annotation(assigned_disease):
     </span>
     """, unsafe_allow_html=True)
     Q1_value = st.radio(
-        "",
+        "Q1. What is the latest status of this drug for this disease? (single choice)",
         Q1_options,
         index=Q1_options.index(prev_Q1) if prev_Q1 in Q1_options else None
     )
+    st.markdown(
+    """<style>
+    div[class*="stRadio"] > label > div[data-testid="stMarkdownContainer"] > p {
+        font-size: 32px;
+    }
+        </style>
+        """, unsafe_allow_html=True)
 
 
     prev_Q2 = (
