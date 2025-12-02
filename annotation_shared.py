@@ -132,7 +132,12 @@ def run_annotation(assigned_disease):
     if "Q1" in questionnaire and isinstance(questionnaire["Q1"], dict):
         clinical_refs = questionnaire["Q1"].get("clinicaltrial_references", [])
 
-    clinical_refs_text = "\n".join(clinical_refs) if clinical_refs else "No clinical trial references found."
+    clinical_refs_text = (
+        "\n".join(f"• {ref}" for ref in clinical_refs)
+        if clinical_refs
+        else "No clinical trial references found."
+    )
+
     st.text_area(
         "Clinical Trials:",
         value=clinical_refs_text,
