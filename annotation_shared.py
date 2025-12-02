@@ -127,6 +127,18 @@ def run_annotation(assigned_disease):
         Q1_options,
         index=Q1_options.index(prev_Q1) if prev_Q1 in Q1_options else None
     )
+    clinical_refs = []
+
+    if "Q1" in questionnaire and isinstance(questionnaire["Q1"], dict):
+        clinical_refs = questionnaire["Q1"].get("clinicaltrial_references", [])
+
+    clinical_refs_text = "\n".join(clinical_refs) if clinical_refs else "No clinical trial references found."
+    st.text_area(
+        "Clinical Trials:",
+        value=clinical_refs_text,
+        height=150,
+        disabled=True
+    )
 
     prev_Q2 = (
     [questionnaire["Q2"]["selection"]] 
@@ -155,6 +167,18 @@ def run_annotation(assigned_disease):
         "*(If “Rarely discussed” is selected, proceed to Q3. For all other selections, skip and go directly to Q4)*"
         "</div>",
         unsafe_allow_html=True
+    )
+    literature_refs = []
+    if "Q2" in questionnaire and isinstance(questionnaire["Q2"], dict):
+        literature_refs = questionnaire["Q2"].get("literature_references", [])
+
+    literature_refs_text = "\n".join(literature_refs) if literature_refs else "No literature references found."
+
+    st.text_area(
+        "Revelant References:",
+        value=literature_refs_text,
+        height=150,
+        disabled=True
     )
 
     prev_Q3 = questionnaire.get("Q3_interest")
