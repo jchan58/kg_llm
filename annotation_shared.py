@@ -119,7 +119,6 @@ def run_annotation(assigned_disease):
         "No — No clinical trials identified for this drug in this disease",
     ]
 
-    # Normalize short "No"
     if prev_Q1 == "No":
         prev_Q1 = "No — No clinical trials identified for this drug in this disease"
 
@@ -154,12 +153,20 @@ def run_annotation(assigned_disease):
     else:
         Q2_value = None
 
-    prev_Q3 = questionnaire.get("Q3_interest", None)
-    Q3_value = st.radio(
-        "Q3. If pre-clinical data are 'Rarely discussed,' is this drug of interest for repurposing?",
-        ["Of interest", "Not of interest"],
-        index=["Of interest", "Not of interest"].index(prev_Q3) if prev_Q3 in ["Of interest", "Not of interest"] else None
-    )
+    show_Q3 = show_Q2 and Q2_value and ("Rarely discussed" in Q2_value)
+    prev_Q3 = questionnaire.get("Q3_interest") or questionnaire.get("Q3")
+
+    # if the checked Rarely discussed
+    if show_Q3:
+        Q3_value = st.radio(
+            "Q3. If pre-clinical data are 'Rarely discussed,' is this drug of interest?",
+            ["Of interest", "Not of interest"],
+            index=["Of interest", "Not of interest"].index(prev_Q3)
+                if prev_Q3 in ["Of interest", "Not of interest"]
+                else None,
+        )
+    else:
+        Q3_value = None
 
     prev_Q4 = questionnaire.get("Q4_notes", "")
     Q4_value = st.text_area(
