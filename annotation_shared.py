@@ -123,11 +123,15 @@ def run_annotation(assigned_disease):
         prev_Q1 = "No — No clinical trials identified for this drug in this disease"
 
 
-    Q1_label = "**Q1. What is the latest status of this drug for this disease? (single choice)**"
-    Q1_markdown = "(If, and only if, you select “No,” please proceed to Q2. For all other selections, please go directly to Q4.)"
+    Q1_label = """
+    **Q1. What is the latest status of this drug for this disease? (single choice)**  
+    <span style='font-size:0.9rem; color:#666;'>
+    (If, and only if, you select “No,” please proceed to Q2.  
+    For all other selections, please go directly to Q4.)
+    </span>
+    """
     Q1_value = st.radio(
         Q1_label,
-        Q1_markdown,
         Q1_options,
         index=Q1_options.index(prev_Q1) if prev_Q1 in Q1_options else None
     )
