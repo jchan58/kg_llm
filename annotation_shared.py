@@ -22,13 +22,24 @@ div[data-testid="stMultiSelect"] > div {
 </style>
 """)
 
-if "force_scroll_top" in st.session_state and st.session_state.force_scroll_top:
+if st.session_state.get("force_scroll_top", False):
     st.markdown("""
         <script>
-            window.parent.document.querySelector('section.main')
-            .scrollTo({top: 0, behavior: 'smooth'});
+        setTimeout(function() {
+            // Scroll the main container
+            const main = window.parent.document.querySelector('section.main');
+            if (main) main.scrollTo({ top: 0, behavior: 'instant' });
+
+            // Scroll Streamlit's main block (newer versions)
+            const blocks = window.parent.document.querySelectorAll('[data-testid="stAppViewContainer"], .block-container');
+            blocks.forEach(el => el.scrollTop = 0);
+
+            // Scroll the entire window as fallback
+            window.parent.scrollTo(0, 0);
+        }, 50);
         </script>
     """, unsafe_allow_html=True)
+
     st.session_state.force_scroll_top = False
 
 def display_disease_name(d):
