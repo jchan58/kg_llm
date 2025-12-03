@@ -385,6 +385,10 @@ def run_annotation(assigned_disease):
                 {"disease": assigned_disease},
                 {"$set": updates}
             )
+        diseases_collection.update_one(
+        {"disease": assigned_disease},
+        {"$set": {f"drug_map.{current_drug}.completed": True}}
+        )
 
     st.markdown("<div style='margin-top: 2rem;'></div>", unsafe_allow_html=True)
     col1, col2, col3 = st.columns([1, 1, 1])
@@ -405,11 +409,7 @@ def run_annotation(assigned_disease):
 
     with col3:
         if st.button("Next →", use_container_width=True):
-            diseases_collection.update_one(
-                {"disease": assigned_disease},
-                {"$set": {f"drug_map.{current_drug}.completed": True}}
-            )
-            st.session_state.navigate_to = None
+            st.session_state.navigate_to = None  
             st.session_state.last_drug = current_drug
             st.rerun()
 
