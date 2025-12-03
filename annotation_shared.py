@@ -131,7 +131,7 @@ def run_annotation(assigned_disease):
         prev_Q1 = "No — No clinical trials identified for this drug in this disease"
 
     st.html("""
-    <div style='font-weight:600; font-size:1rem;'>
+    <div style='font-weight:600; font-size:1.4rem;'>
         Q1. What is the latest status of this drug for this disease? (single choice)
     </div>
     """)
