@@ -22,25 +22,13 @@ div[data-testid="stMultiSelect"] > div {
 </style>
 """)
 
-if st.session_state.get("force_scroll_top", False):
-    st.markdown("""
+def scroll_to_top():
+    st.components.v1.html("""
         <script>
-        setTimeout(function() {
-            // Scroll the main container
-            const main = window.parent.document.querySelector('section.main');
-            if (main) main.scrollTo({ top: 0, behavior: 'instant' });
-
-            // Scroll Streamlit's main block (newer versions)
-            const blocks = window.parent.document.querySelectorAll('[data-testid="stAppViewContainer"], .block-container');
-            blocks.forEach(el => el.scrollTop = 0);
-
-            // Scroll the entire window as fallback
-            window.parent.scrollTo(0, 0);
-        }, 50);
+            window.parent.document.documentElement.scrollTo({ top: 0, behavior: "auto" });
+            window.parent.document.body.scrollTo({ top: 0, behavior: "auto" });
         </script>
-    """, unsafe_allow_html=True)
-
-    st.session_state.force_scroll_top = False
+    """, height=0)
 
 def display_disease_name(d):
     d = d.lower()
@@ -441,7 +429,7 @@ def run_annotation(assigned_disease):
             else:
                 next_drug = None  
             st.session_state.navigate_to = next_drug
-            st.session_state.force_scroll_top = True
+            scroll_to_top()
             st.rerun()
 
     if st.session_state.confirm_save:
