@@ -2,6 +2,14 @@ import streamlit as st
 from pymongo import MongoClient
 import re
 
+st.html("""
+<style>
+div[data-testid="stRadio"] > div {
+    margin-top: -12px !important;
+}
+</style>
+""")
+
 def bracket_url_to_md(text):
     pattern = r"\[(https?://[^\]]+)\]"
     def repl(match):
@@ -135,16 +143,12 @@ def run_annotation(assigned_disease):
         Q1. What is the latest status of this drug for this disease? (single choice)
     </div>
     """)
-
-    # Helper text
     st.html("""
         <div style='margin-top:-8px; font-size:0.9rem; color:#666;'>
             <em>(If, and only if, you select “No,” please proceed to Q2. 
             For all other selections, please go directly to Q4.)</em>
         </div>
     """)
-
-    # Radio widget (no label)
     Q1_value = st.radio(
         "",
         Q1_options,
