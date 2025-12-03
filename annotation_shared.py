@@ -183,7 +183,8 @@ def run_annotation(assigned_disease):
     Q1_value = st.radio(
         "",
         Q1_options,
-        index=Q1_options.index(prev_Q1) if prev_Q1 in Q1_options else None
+        index=Q1_options.index(prev_Q1) if prev_Q1 in Q1_options else None, 
+        key=f"Q1_{assigned_disease}_{current_drug}"
     )
     clinical_refs = []
     if "Q1" in questionnaire and isinstance(questionnaire["Q1"], dict):
@@ -225,9 +226,10 @@ def run_annotation(assigned_disease):
         </div>
     """)
     Q2_value = st.multiselect(
-        "",
-        Q2_options,
-        default=[v for v in prev_Q2 if v in Q2_options]
+    "",
+    Q2_options,
+    default=[v for v in prev_Q2 if v in Q2_options],
+    key=f"Q2_{assigned_disease}_{current_drug}"
     )
 
     literature_refs = []
