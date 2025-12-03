@@ -70,6 +70,9 @@ def run_annotation(assigned_disease):
     if "navigate_to" not in st.session_state:
         st.session_state.navigate_to = None
 
+    if "confirm_save" not in st.session_state:
+        st.session_state.confirm_save = False
+
     # DB setup
     client = MongoClient(st.secrets["MONGO_URI"])
     db = client["kgxllm"]
