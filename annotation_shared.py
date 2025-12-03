@@ -155,7 +155,7 @@ def run_annotation(assigned_disease):
     )
 
     Q1_options = [
-        "FDA-Approved to liver cancer",
+        f"FDA-Approved to {disease_title}",
         "Completed phase III with positive result",
         "In phase III",
         "Completed phase II with positive result",
