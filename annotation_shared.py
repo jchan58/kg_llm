@@ -256,11 +256,12 @@ def run_annotation(assigned_disease):
     </div>
     """)
     Q3_value = st.radio(
-    "",
-    ["Of interest", "Not of interest"],
-    index=["Of interest", "Not of interest"].index(prev_Q3)
-        if prev_Q3 in ["Of interest", "Not of interest"] else None,
-    key=f"Q3_{assigned_disease}_{current_drug}"
+        " ",
+        ["Of interest", "Not of interest"],
+        index=(["Of interest", "Not of interest"].index(prev_Q3)
+            if prev_Q3 in ["Of interest", "Not of interest"]
+            else None),
+        key=f"Q3_{assigned_disease}_{current_drug}"
     )
 
     prev_Q4 = questionnaire.get("Q4_notes", "")
