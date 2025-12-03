@@ -387,7 +387,7 @@ def run_annotation(assigned_disease):
             )
 
     st.markdown("<div style='margin-top: 2rem;'></div>", unsafe_allow_html=True)
-    col1, col2, col3 = st.columns([1, 6, 1])
+    col1, col2, col3 = st.columns([1, 1, 1])
 
     with col1:
         drug_list = list(drug_map.keys())
