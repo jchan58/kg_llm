@@ -213,8 +213,6 @@ def run_annotation(assigned_disease):
     Q2_options = [
         "Positive result in animal study",
         "Negative result in animal study",
-        "Positive result in vivo result",
-        "Negative result in vivo result",
         "Positive result in vitro result",
         "Negative result in vitro result",
         "Rarely discussed",
@@ -364,6 +362,36 @@ def run_annotation(assigned_disease):
             st.session_state.last_drug = current_drug
             st.rerun()
 
+    def confirm_answers():
+        st.session_state.confirm_next = False
+        new_data = {
+                "Q1.selection": Q1_value,
+                "Q2.selection": Q2_value,
+                "Q3_interest": Q3_value,
+                "Q4_notes": Q4_value,
+            }
+
+        updates = {
+            f"drug_map.{current_drug}.{key}": val
+            for key, val in new_data.items()
+            if val != questionnaire.get(key, None)
+        }
+
+        if updates:
+            diseases_collection.update_one(
+                {"disease": assigned_disease},
+                {"$set": updates}
+            )
+
+        diseases_collection.update_one(
+            {"disease": assigned_disease},
+            {"$set": {f"drug_map.{current_drug}.completed": True}}
+        )
+
+        users_collection.update_one(
+            {"email": email},
+            {"$set": {"last_drug": current_drug}}
+        )
 
     st.markdown("<div style='margin-top: 2rem;'></div>", unsafe_allow_html=True)
     col1, col2, col3 = st.columns([1, 6, 1])
@@ -379,13 +407,15 @@ def run_annotation(assigned_disease):
             st.rerun()
 
     with col2:
-        st.write("") 
+        if st.button("Confirm", use_container_width=True):
+            st.session_state.confirm_save = True
 
     with col3:
         if st.button("Next →", use_container_width=True):
-            st.session_state.confirm_next = True
+            st.session_state.navigate_to = None
+            st.session_state.last_drug = current_drug
             st.rerun()
 
-    if st.session_state.confirm_next:
-        confirm_dialog()
+    if st.session_state.confirm_save:
+        confirm_answers()
             
