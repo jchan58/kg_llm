@@ -130,16 +130,16 @@ def run_annotation(assigned_disease):
     if prev_Q1 == "No":
         prev_Q1 = "No — No clinical trials identified for this drug in this disease"
 
+    Q1_value = st.radio(
+        "Q1. What is the latest status of this drug for this disease? (single choice)",
+        Q1_options,
+        index=Q1_options.index(prev_Q1) if prev_Q1 in Q1_options else None
+    )
     st.markdown(
     "<div style='margin-top:-10px; font-size:0.9rem; color:#666;'><em>"
     "(If, and only if, you select “No,” please proceed to Q2. For all other selections, please go directly to Q4.)"
     "</em></div>",
     unsafe_allow_html=True
-)
-    Q1_value = st.radio(
-        "Q1. What is the latest status of this drug for this disease? (single choice)",
-        Q1_options,
-        index=Q1_options.index(prev_Q1) if prev_Q1 in Q1_options else None
     )
     clinical_refs = []
     if "Q1" in questionnaire and isinstance(questionnaire["Q1"], dict):
@@ -176,10 +176,10 @@ def run_annotation(assigned_disease):
         default=[v for v in prev_Q2 if v in Q2_options]
     )
     st.markdown(
-        "<div style='color:#555; font-size:0.9rem; margin-top:-10px;'>"
-        "*(If “Rarely discussed” is selected, proceed to Q3. For all other selections, skip and go directly to Q4)*"
-        "</div>",
-        unsafe_allow_html=True
+    "<div style='margin-top:-10px; font-size:0.9rem; color:#666;'><em>"
+    "(If “Rarely discussed” is selected, proceed to Q3. For all other selections, skip and go directly to Q4)"
+    "</em></div>",
+    unsafe_allow_html=True
     )
 
     literature_refs = []
