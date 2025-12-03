@@ -22,15 +22,6 @@ div[data-testid="stMultiSelect"] > div {
 </style>
 """)
 
-st.markdown("""
-<style>
-/* Expand multiselect selected "pill" text instead of truncating it */
-.stMultiSelect div[role="listbox"] span {
-    max-width: none !important;
-    white-space: normal !important;
-}
-</style>
-""", unsafe_allow_html=True)
 
 def display_disease_name(d):
     d = d.lower()
@@ -240,12 +231,15 @@ def run_annotation(assigned_disease):
             <em>(If “Rarely discussed” is selected, proceed to Q3. For all other selections, skip and go directly to Q4)</em>
         </div>
     """)
-    Q2_value = st.multiselect(
-    "",
-    Q2_options,
-    default=[v for v in prev_Q2 if v in Q2_options],
-    key=f"Q2_{assigned_disease}_{current_drug}"
-    )
+    Q2_value = []
+    for opt in Q2_options:
+        checked = st.checkbox(
+            opt,
+            value=opt in prev_Q2,
+            key=f"Q2_{assigned_disease}_{current_drug}_{opt}"
+        )
+        if checked:
+            Q2_value.append(opt)
 
     literature_refs = []
     if "Q2" in questionnaire and isinstance(questionnaire["Q2"], dict):
