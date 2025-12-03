@@ -5,7 +5,7 @@ import re
 st.html("""
 <style>
 div[data-testid="stRadio"] > div {
-    margin-top: -12px !important;
+    margin-top: -20px !important;
 }
 </style>
 """)
