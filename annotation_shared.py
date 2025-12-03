@@ -183,16 +183,21 @@ def run_annotation(assigned_disease):
         "Irrelevant drugs",
     ]
 
+    st.html("""
+    <div style='font-weight:600; font-size:1.4rem;'>
+        Q2. What is the pre-clinical result for testing this drug in this disease? (multi-choice)
+    </div>
+    """)
+    st.html("""
+        <div style='margin-top:-8px; font-size:0.9rem; color:#666;'>
+            <em>(If “Rarely discussed” is selected, proceed to Q3. For all other selections, skip and go directly to Q4)</em>
+        </div>
+    """)
+
     Q2_value = st.multiselect(
-        "Q2. What is the pre-clinical result for testing this drug in this disease? (multi-choice)",
+        "",
         Q2_options,
         default=[v for v in prev_Q2 if v in Q2_options]
-    )
-    st.markdown(
-    "<div style='margin-top:-10px; font-size:0.9rem; color:#666;'><em>"
-    "(If “Rarely discussed” is selected, proceed to Q3. For all other selections, skip and go directly to Q4)"
-    "</em></div>",
-    unsafe_allow_html=True
     )
 
     literature_refs = []
@@ -208,8 +213,13 @@ def run_annotation(assigned_disease):
         st.markdown(refs_md)
 
     prev_Q3 = questionnaire.get("Q3_interest")
+    st.html("""
+    <div style='font-weight:600; font-size:1.4rem;'>
+        Q3. If pre-clinical data are 'Rarely discussed,' is this drug of interest?
+    </div>
+    """)
     Q3_value = st.radio(
-        "Q3. If pre-clinical data are 'Rarely discussed,' is this drug of interest?",
+        "",
         ["Of interest", "Not of interest"],
         index=["Of interest", "Not of interest"].index(prev_Q3)
             if prev_Q3 in ["Of interest", "Not of interest"]
@@ -217,8 +227,13 @@ def run_annotation(assigned_disease):
     )
 
     prev_Q4 = questionnaire.get("Q4_notes", "")
+    st.html("""
+    <div style='font-weight:600; font-size:1.4rem;'>
+        Q4. Additional Notes
+    </div>
+    """)
     Q4_value = st.text_area(
-        "Q4. Additional Notes",
+        "",
         value=prev_Q4,
         height=200
     )
