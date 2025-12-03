@@ -198,11 +198,16 @@ def run_annotation(assigned_disease):
     with st.expander("Clinical Trials", expanded=True):
         st.markdown(refs_md)
 
-    prev_Q2 = (
-    [questionnaire["Q2"]["selection"]] 
-    if "Q2" in questionnaire and isinstance(questionnaire["Q2"], dict)
-    else questionnaire.get("Q2_preclinical_results", [])
-    )
+    if "Q2" in questionnaire and isinstance(questionnaire["Q2"], dict):
+        raw = questionnaire["Q2"].get("selection", [])
+        if isinstance(raw, str):
+            prev_Q2 = [raw]
+        elif isinstance(raw, list):
+            prev_Q2 = raw
+        else:
+            prev_Q2 = []
+    else:
+        prev_Q2 = []
 
     Q2_options = [
         "Positive result in animal study",
