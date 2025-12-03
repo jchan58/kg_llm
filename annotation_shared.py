@@ -2,9 +2,21 @@ import streamlit as st
 from pymongo import MongoClient
 import re
 
+# remove the space
 st.html("""
 <style>
+/* Radio */
 div[data-testid="stRadio"] > div {
+    margin-top: -30px !important;
+}
+
+/* Text area */
+div[data-testid="stTextArea"] > div {
+    margin-top: -30px !important;
+}
+
+/* Multiselect */
+div[data-testid="stMultiSelect"] > div {
     margin-top: -30px !important;
 }
 </style>
@@ -193,7 +205,6 @@ def run_annotation(assigned_disease):
             <em>(If “Rarely discussed” is selected, proceed to Q3. For all other selections, skip and go directly to Q4)</em>
         </div>
     """)
-
     Q2_value = st.multiselect(
         "",
         Q2_options,
