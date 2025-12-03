@@ -282,91 +282,91 @@ def run_annotation(assigned_disease):
     key=f"Q4_{assigned_disease}_{current_drug}"
     )
 
-    @st.dialog(" ", width="small", dismissible=False)
-    def confirm_dialog():
-        st.markdown("""
-        <style>
-        .stButton > button {
-            width: 130px !important;
-            padding: 0.55rem 1rem !important;
-            font-weight: 600 !important;
-            border-radius: 8px !important;
-            font-size: 0.95rem !important;
-        }
+    # @st.dialog(" ", width="small", dismissible=False)
+    # def confirm_dialog():
+    #     st.markdown("""
+    #     <style>
+    #     .stButton > button {
+    #         width: 130px !important;
+    #         padding: 0.55rem 1rem !important;
+    #         font-weight: 600 !important;
+    #         border-radius: 8px !important;
+    #         font-size: 0.95rem !important;
+    #     }
 
-        div[data-testid="stDialog"] div[id="no_btn"] > button {
-            background-color: #ffb3c6 !important;
-            color: black !important;
-            border: none !important;
-        }
-        div[data-testid="stDialog"] div[id="no_btn"] > button:hover {
-            background-color: #ff8eab !important;
-        }
+    #     div[data-testid="stDialog"] div[id="no_btn"] > button {
+    #         background-color: #ffb3c6 !important;
+    #         color: black !important;
+    #         border: none !important;
+    #     }
+    #     div[data-testid="stDialog"] div[id="no_btn"] > button:hover {
+    #         background-color: #ff8eab !important;
+    #     }
 
-        div[data-testid="stDialog"] div[id="yes_btn"] > button {
-            background-color: #b6eeb3 !important;
-            color: black !important;
-            border: none !important;
-        }
-        div[data-testid="stDialog"] div[id="yes_btn"] > button:hover {
-            background-color: #9fe79b !important;
-        }
-        </style>
-    """, unsafe_allow_html=True)
-        st.markdown(
-            "<div style='text-align:center;'>Are you sure you want to move onto the next drug?</div>",
-            unsafe_allow_html=True
-        )
-        col_sp1, col_no, col_yes, col_sp2 = st.columns([1, 1, 1, 1])
+    #     div[data-testid="stDialog"] div[id="yes_btn"] > button {
+    #         background-color: #b6eeb3 !important;
+    #         color: black !important;
+    #         border: none !important;
+    #     }
+    #     div[data-testid="stDialog"] div[id="yes_btn"] > button:hover {
+    #         background-color: #9fe79b !important;
+    #     }
+    #     </style>
+    # """, unsafe_allow_html=True)
+    #     st.markdown(
+    #         "<div style='text-align:center;'>Are you sure you want to move onto the next drug?</div>",
+    #         unsafe_allow_html=True
+    #     )
+    #     col_sp1, col_no, col_yes, col_sp2 = st.columns([1, 1, 1, 1])
 
-        with col_no:
-            no_clicked = st.button("No", key="no_btn")
+    #     with col_no:
+    #         no_clicked = st.button("No", key="no_btn")
 
-        with col_yes:
-            yes_clicked = st.button("Yes", key="yes_btn")
+    #     with col_yes:
+    #         yes_clicked = st.button("Yes", key="yes_btn")
 
-        if no_clicked:
-            st.session_state.confirm_next = False
-            st.rerun()
+    #     if no_clicked:
+    #         st.session_state.confirm_next = False
+    #         st.rerun()
 
-        if yes_clicked:
-            st.session_state.confirm_next = False
+    #     if yes_clicked:
+    #         st.session_state.confirm_next = False
 
-            new_data = {
-                "Q1.selection": Q1_value,
-                "Q2.selection": Q2_value,
-                "Q3_interest": Q3_value,
-                "Q4_notes": Q4_value,
-            }
+    #         new_data = {
+    #             "Q1.selection": Q1_value,
+    #             "Q2.selection": Q2_value,
+    #             "Q3_interest": Q3_value,
+    #             "Q4_notes": Q4_value,
+    #         }
 
-            updates = {
-                f"drug_map.{current_drug}.{key}": val
-                for key, val in new_data.items()
-                if val != questionnaire.get(key, None)
-            }
+    #         updates = {
+    #             f"drug_map.{current_drug}.{key}": val
+    #             for key, val in new_data.items()
+    #             if val != questionnaire.get(key, None)
+    #         }
 
-            if updates:
-                diseases_collection.update_one(
-                    {"disease": assigned_disease},
-                    {"$set": updates}
-                )
+    #         if updates:
+    #             diseases_collection.update_one(
+    #                 {"disease": assigned_disease},
+    #                 {"$set": updates}
+    #             )
 
-            diseases_collection.update_one(
-                {"disease": assigned_disease},
-                {"$set": {f"drug_map.{current_drug}.completed": True}}
-            )
+    #         diseases_collection.update_one(
+    #             {"disease": assigned_disease},
+    #             {"$set": {f"drug_map.{current_drug}.completed": True}}
+    #         )
 
-            users_collection.update_one(
-                {"email": email},
-                {"$set": {"last_drug": current_drug}}
-            )
+    #         users_collection.update_one(
+    #             {"email": email},
+    #             {"$set": {"last_drug": current_drug}}
+    #         )
 
-            st.session_state.navigate_to = None
-            st.session_state.last_drug = current_drug
-            st.rerun()
+    #         st.session_state.navigate_to = None
+    #         st.session_state.last_drug = current_drug
+    #         st.rerun()
 
     def confirm_answers():
-        st.session_state.confirm_next = False
+        st.session_state.confirm_save = False
         new_data = {
                 "Q1.selection": Q1_value,
                 "Q2.selection": Q2_value,
