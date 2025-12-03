@@ -395,6 +395,7 @@ def run_annotation(assigned_disease):
             {"email": email},
             {"$set": {"last_drug": current_drug}}
         )
+        st.rerun()
 
     st.markdown("<div style='margin-top: 2rem;'></div>", unsafe_allow_html=True)
     col1, col2, col3 = st.columns([1, 6, 1])
