@@ -1,2 +1,2 @@
 from annotation_shared import run_annotation
-run_annotation("glioblastoma")
+run_annotation("glioblastoma_betty")
