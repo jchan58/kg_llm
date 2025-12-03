@@ -22,6 +22,12 @@ div[data-testid="stMultiSelect"] > div {
 </style>
 """)
 
+def scroll_to_top():
+    st.markdown("""
+        <script>
+            window.parent.document.querySelector('section.main').scrollTo({top: 0, behavior: 'smooth'});
+        </script>
+    """, unsafe_allow_html=True)
 
 def display_disease_name(d):
     d = d.lower()
@@ -422,6 +428,7 @@ def run_annotation(assigned_disease):
             else:
                 next_drug = None  
             st.session_state.navigate_to = next_drug
+            scroll_to_top()
             st.rerun()
 
     if st.session_state.confirm_save:
