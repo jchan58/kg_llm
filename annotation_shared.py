@@ -23,12 +23,25 @@ div[data-testid="stMultiSelect"] > div {
 """)
 
 def bracket_url_to_md(text):
+    if text is None:
+        return ""
+    text = str(text)
     pattern = r"\[(https?://[^\]]+)\]"
-    def repl(match):
-        url = match.group(1)
-        return f"[{url}]({url})"
-
+    repl = r"<\1>"
     return re.sub(pattern, repl, text)
+
+def format_reference(ref):
+    if isinstance(ref, str):
+        return bracket_url_to_md(ref)
+    elif isinstance(ref, dict):
+        title = ref.get("study_summary", {}).get("title", "")
+        nct = ref.get("nct_id", "")
+        url = f"https://clinicaltrials.gov/study/{nct}" if nct else ""
+        if url:
+            return f"**{title}** — [{nct}]({url})"
+        else:
+            return f"**{title}**"
+    return ""
 
 def run_annotation(assigned_disease):
     # hide Streamlit sidebar
@@ -171,7 +184,7 @@ def run_annotation(assigned_disease):
         clinical_refs = questionnaire["Q1"].get("clinicaltrial_references", [])
 
     if clinical_refs:
-        refs_md = "\n".join(f"- {bracket_url_to_md(ref)}" for ref in clinical_refs)
+        refs_md = "\n".join(f"- {format_reference(ref)}" for ref in clinical_refs)
     else:
         refs_md = "No clinical trial references found."
 
