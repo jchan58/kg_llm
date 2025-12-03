@@ -365,7 +365,7 @@ def run_annotation(assigned_disease):
     #         st.session_state.last_drug = current_drug
     #         st.rerun()
 
-    def confirm_answers():
+    def save_answers():
         st.session_state.confirm_save = False
         new_data = {
             "Q1.selection": Q1_value,
@@ -385,9 +385,12 @@ def run_annotation(assigned_disease):
                 {"disease": assigned_disease},
                 {"$set": updates}
             )
+
+    def save_and_mark_completed():
+        save_answers()
         diseases_collection.update_one(
-        {"disease": assigned_disease},
-        {"$set": {f"drug_map.{current_drug}.completed": True}}
+            {"disease": assigned_disease},
+            {"$set": {f"drug_map.{current_drug}.completed": True}}
         )
 
     st.markdown("<div style='margin-top: 2rem;'></div>", unsafe_allow_html=True)
@@ -409,10 +412,18 @@ def run_annotation(assigned_disease):
 
     with col3:
         if st.button("Next →", use_container_width=True):
-            st.session_state.navigate_to = None  
-            st.session_state.last_drug = current_drug
+
+            save_answers()
+            drug_list = list(drug_map.keys())
+            idx = drug_list.index(current_drug)
+
+            if idx < len(drug_list) - 1:
+                next_drug = drug_list[idx + 1]
+            else:
+                next_drug = None  
+            st.session_state.navigate_to = next_drug
             st.rerun()
 
     if st.session_state.confirm_save:
-        confirm_answers()
+        save_and_mark_completed()
             
