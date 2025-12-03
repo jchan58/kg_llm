@@ -415,6 +415,7 @@ def run_annotation(assigned_disease):
 
     with col3:
         if st.button("Next →", use_container_width=True):
+            st.session_state.confirm_next = True
             st.session_state.navigate_to = None
             st.session_state.last_drug = current_drug
             st.rerun()
