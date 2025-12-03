@@ -22,6 +22,12 @@ div[data-testid="stMultiSelect"] > div {
 </style>
 """)
 
+def display_disease_name(d):
+    d = d.lower()
+    if d.endswith("cancer") and " " not in d:
+        return d.replace("cancer", " cancer").title()
+    return d.title()
+
 def bracket_url_to_md(text):
     if text is None:
         return ""
@@ -133,8 +139,8 @@ def run_annotation(assigned_disease):
                 st.session_state.navigate_to = drug
                 st.session_state.last_drug = drug
                 st.rerun()
-
-    st.title(f"{assigned_disease.title()} — Drug Annotation")
+    disease_title = display_disease_name(assigned_disease)
+    st.title(f"{disease_title} — Drug Annotation")
     drug_list = list(drug_map.keys())
     total_drugs = len(drug_list)
     completed_count = sum(1 for drug in drug_list if is_completed(drug))
