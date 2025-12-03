@@ -22,6 +22,16 @@ div[data-testid="stMultiSelect"] > div {
 </style>
 """)
 
+st.markdown("""
+<style>
+/* Expand multiselect selected "pill" text instead of truncating it */
+.stMultiSelect div[role="listbox"] span {
+    max-width: none !important;
+    white-space: normal !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
 def display_disease_name(d):
     d = d.lower()
     if d.endswith("cancer") and " " not in d:
@@ -264,7 +274,7 @@ def run_annotation(assigned_disease):
         key=f"Q3_{assigned_disease}_{current_drug}"
     )
 
-    prev_Q4 = questionnaire.get("Q4_notes", "")
+    prev_Q4 = questionnaire.get("Q4_notes (optional)", "")
     st.html("""
     <div style='font-weight:600; font-size:1.4rem;'>
         Q4. Additional Notes
