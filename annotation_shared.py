@@ -268,10 +268,10 @@ def run_annotation(assigned_disease):
         key=f"Q3_{assigned_disease}_{current_drug}"
     )
 
-    prev_Q4 = questionnaire.get("Q4_notes (optional)", "")
+    prev_Q4 = questionnaire.get("Q4_notes", "")
     st.html("""
     <div style='font-weight:600; font-size:1.4rem;'>
-        Q4. Additional Notes
+        Q4. Additional Notes (Optional)
     </div>
     """)
     Q4_value = st.text_area(
