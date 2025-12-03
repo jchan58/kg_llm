@@ -322,8 +322,8 @@ def run_annotation(assigned_disease):
             st.session_state.confirm_next = False
 
             new_data = {
-                "Q1_latest_status": Q1_value,
-                "Q2_preclinical_results": Q2_value,
+                "Q1.selection": Q1_value,
+                "Q2.selection": Q2_value,
                 "Q3_interest": Q3_value,
                 "Q4_notes": Q4_value,
             }
