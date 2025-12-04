@@ -209,45 +209,40 @@ def run_annotation(assigned_disease):
     with st.expander("Clinical Trials", expanded=True):
         st.markdown(refs_md)
 
+    Q2_internal_to_display = {
+        "Positive result in animal study": "Positive results in animal study (live animal models)",
+        "Negative result in animal study": "Negative results in animal study (live animal models)",
+        "Positive result in vivo result": "Positive results in vivo (wet experiments at cell / tissue level)",
+        "Negative result in vivo result": "Negative results in vivo (wet experiments at cell / tissue level)",
+        "Positive result in vitro result": "Positive results in vitro result",
+        "Negative result in vitro result": "Negative results in vitro result",
+        "Rarely discussed": "Rarely discussed",
+        "Irrelevant drugs": "Irrelevant drugs",
+    }
+
+    Q2_display_to_internal = {v: k for k, v in Q2_internal_to_display.items()}
+    Q2_display_options = list(Q2_display_to_internal.keys())
+
     if "Q2" in questionnaire and isinstance(questionnaire["Q2"], dict):
         raw = questionnaire["Q2"].get("selection", [])
-        if isinstance(raw, str):
-            prev_Q2 = [raw]
-        elif isinstance(raw, list):
-            prev_Q2 = raw
-        else:
-            prev_Q2 = []
+        prev_Q2 = [raw] if isinstance(raw, str) else raw
     else:
         prev_Q2 = []
 
-    Q2_options = [
-        "Positive result in animal study",
-        "Negative result in animal study",
-        "Positive result in vitro result",
-        "Negative result in vitro result",
-        "Rarely discussed",
-        "Irrelevant drugs",
-    ]
+    prev_Q2_display = [Q2_internal_to_display.get(item, item) for item in prev_Q2]
 
-    st.html("""
-    <div style='font-weight:600; font-size:1.4rem;'>
-        Q2. What is the pre-clinical result for testing this drug in this disease? (multi-choice)
-    </div>
-    """)
-    st.html("""
-        <div style='margin-top:-8px; font-size:0.9rem; color:#666;'>
-            <em>(If “Rarely discussed” is selected, proceed to Q3. For all other selections, skip and go directly to Q4)</em>
-        </div>
-    """)
-    Q2_value = []
-    for opt in Q2_options:
+    st.html("""<div style='font-weight:600; font-size:1.4rem;'>Q2. What is the pre-clinical result for testing this drug in this disease? (multi-choice)</div>""")
+    st.html("""<div style='margin-top:-8px; font-size:0.9rem; color:#666;'><em>(If “Rarely discussed” is selected, proceed to Q3. For all other selections, skip and go directly to Q4)</em></div>""")
+    Q2_value_internal = []
+    for display_opt in Q2_display_options:
+        internal_opt = Q2_display_to_internal[display_opt]
         checked = st.checkbox(
-            opt,
-            value=opt in prev_Q2,
-            key=f"Q2_{assigned_disease}_{current_drug}_{opt}"
+            display_opt,
+            value=display_opt in prev_Q2_display,
+            key=f"Q2_{assigned_disease}_{current_drug}_{internal_opt}"
         )
         if checked:
-            Q2_value.append(opt)
+            Q2_value_internal.append(internal_opt)
 
     literature_refs = []
     if "Q2" in questionnaire and isinstance(questionnaire["Q2"], dict):
@@ -268,11 +263,13 @@ def run_annotation(assigned_disease):
     </div>
     """)
     Q3_value = st.radio(
-        " ",
-        ["Of interest", "Not of interest"],
-        index=(["Of interest", "Not of interest"].index(prev_Q3)
-            if prev_Q3 in ["Of interest", "Not of interest"]
-            else None),
+        "",
+        ["Of interest for pre-clinical research in the lab", "Not of interest"],
+        index=(
+            ["Of interest for pre-clinical research in the lab", "Not of interest"].index(prev_Q3)
+            if prev_Q3 in ["Of interest for pre-clinical research in the lab", "Not of interest"]
+            else None
+        ),
         key=f"Q3_{assigned_disease}_{current_drug}"
     )
 
