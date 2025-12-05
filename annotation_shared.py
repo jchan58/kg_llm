@@ -264,10 +264,10 @@ def run_annotation(assigned_disease):
     """)
     Q3_value = st.radio(
         "",
-        ["Of interest for pre-clinical research in the lab", "Not of interest"],
+        ["Of interest for pre-clinical research in the lab", "Not interest"],
         index=(
-            ["Of interest for pre-clinical research in the lab", "Not of interest"].index(prev_Q3)
-            if prev_Q3 in ["Of interest for pre-clinical research in the lab", "Not of interest"]
+            ["Of interest for pre-clinical research in the lab", "Not interest"].index(prev_Q3)
+            if prev_Q3 in ["Of interest for pre-clinical research in the lab", "Not interest"]
             else None
         ),
         key=f"Q3_{assigned_disease}_{current_drug}"
