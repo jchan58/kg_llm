@@ -36,6 +36,7 @@ def display_disease_name(d):
         return d.replace("cancer", " cancer").title()
     return d.title()
 
+
 def bracket_url_to_md(text):
     if text is None:
         return ""
@@ -166,7 +167,7 @@ def run_annotation(assigned_disease):
     )
 
     Q1_options = [
-        f"FDA-Approved to {disease_title}",
+        f"FDA-Approved to {disease_title.lower()}",
         "Completed phase III with positive result",
         "In phase III",
         "Completed phase II with positive result",
