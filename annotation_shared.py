@@ -35,8 +35,8 @@ def display_disease_name(d):
     if d.endswith("cancer") and " " not in d:
         return d.replace("cancer", " cancer").title()
     else:
-        if d.endswith("saraf") or d.endswith("saraf"):
-            disease_name, person = "Glioblastoma_Saraf".split("_")
+        if d.endswith("david") or d.endswith("david"):
+            disease_name, person = "Glioblastoma_David".split("_")
             return disease_name
     return d.title()
 
