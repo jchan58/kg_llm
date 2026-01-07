@@ -1,0 +1,1316 @@
+{
+  "_id": "692f4162a1bd2b304487675e",
+  "disease": "pancreaticcancer",
+  "drug_map": {
+    "ARRY-142886": {
+      "disease": "pancreatic cancer",
+      "drug": "ARRY-142886",
+      "Q1": {
+        "selection": "Failed in any phases",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Positive result in animal study"
+        ],
+        "literature_references": [
+          "Effects of combined inhibition of MEK and mTOR on downstream signaling and tumor growth in pancreatic cancer xenograft models. [https://pubmed.ncbi.nlm.nih.gov/20009539/]"
+        ]
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "ARRY-142886 appears to be another name for selumetinib. \nMEK1/2 inhibitors have already been shown ineffective in pancreatic cancer as single agents.\n"
+    },
+    "Aflibercept": {
+      "disease": "pancreatic cancer",
+      "drug": "Aflibercept",
+      "Q1": {
+        "selection": "Failed in any phases",
+        "clinicaltrial_references": [
+          "Aflibercept Compared to Placebo in Term of Efficacy in Patients Treated With Gemcitabine for Metastatic Pancreatic Cancer [https://clinicaltrials.gov/study/NCT00574275]"
+        ]
+      },
+      "Q2": {
+        "selection": [
+          "Positive result in animal study"
+        ],
+        "literature_references": [
+          "Aflibercept: a novel VEGF targeted agent to explore the future perspectives of anti-angiogenic therapy for the treatment of multiple tumors. [https://pubmed.ncbi.nlm.nih.gov/23317499/]"
+        ]
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": ""
+    },
+    "Afuresertib": {
+      "disease": "pancreatic cancer",
+      "drug": "Afuresertib",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Rarely discussed"
+        ],
+        "literature_references": [
+          "Azeliragon inhibits PAK1 and enhances the therapeutic efficacy of AKT inhibitors in pancreatic cancer. [https://pubmed.ncbi.nlm.nih.gov/37028543/]"
+        ]
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "MK2205 (another AKT inhibitor) and selumetinib were tested as combination in pancreatic cancer patients (NCT01658943). This was a very negative study where patients receiving the combination did worse than those receiving FOLFOX (which has previously been shown inferior to gem alone). "
+    },
+    "Alpelisib": {
+      "disease": "pancreatic cancer",
+      "drug": "Alpelisib",
+      "Q1": {
+        "selection": "Failed in any phases",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Positive result in animal study"
+        ],
+        "literature_references": [
+          "Development of a novel PIK3CA-mutated pancreatic tumor mouse model and evaluation of the therapeutic effects of a PI3K inhibitor. [https://pubmed.ncbi.nlm.nih.gov/40638603/]"
+        ]
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "Please see https://pmc.ncbi.nlm.nih.gov/articles/PMC11468005/ for alisting of failed studies with PI3K pathway inhibitors, including buparlisib and aleplisib"
+    },
+    "Apitolisib": {
+      "disease": "pancreatic cancer",
+      "drug": "Apitolisib",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Rarely discussed"
+        ],
+        "literature_references": []
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "Please see https://pmc.ncbi.nlm.nih.gov/articles/PMC11468005/ for alisting of failed studies with PI3K pathway inhibitors. This specific one has not been tested clinically, but I don't anticipate a different outcome. "
+    },
+    "Apremilast": {
+      "disease": "pancreatic cancer",
+      "drug": "Apremilast",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Rarely discussed"
+        ],
+        "literature_references": []
+      },
+      "completed": true,
+      "Q3_interest": "Of interest for pre-clinical research in the lab",
+      "Q4_notes": ""
+    },
+    "Binimetinib": {
+      "disease": "pancreatic cancer",
+      "drug": "Binimetinib",
+      "Q1": {
+        "selection": "Failed in any phases",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Rarely discussed"
+        ],
+        "literature_references": [
+          "Design, one-pot synthesis, computational and biological evaluation of diaryl benzimidazole derivatives as MEK inhibitors. [https://pubmed.ncbi.nlm.nih.gov/37807916/]"
+        ]
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "binimetinib/ encorafenib was tested for patients with BRAF mutatant pancreatic cancer in NCT04390243. The study was terminated early for poor accrual (this is a very rare mutation in PDAC so difficult to find patients), however, the data don't look bad. I would not be interested in testing it further, but I would try to use it clinically (off-label) in the rare patient with this mutation. However, binimetinib has no role in treatment of standard pancreatic cancer. "
+    },
+    "Bortezomib": {
+      "disease": "pancreatic cancer",
+      "drug": "Bortezomib",
+      "Q1": {
+        "selection": "In phase II",
+        "clinicaltrial_references": [
+          "Natural Killer Cells and Bortezomib to Treat Cancer [https://clinicaltrials.gov/study/NCT00720785]",
+          "Bortezomib Combined with PD-1 MAb and MFOLFIRINOX for Metastatic Pancreatic Cancer [https://clinicaltrials.gov/study/NCT06572813]",
+          "Paclitaxel and Bortezomib in Treating Patients With Metastatic or Unresectable Malignant Solid Tumors [https://clinicaltrials.gov/study/NCT00667641]"
+        ]
+      },
+      "Q2": {
+        "selection": [
+          "Positive result in vitro result"
+        ],
+        "literature_references": [
+          "Enhancing the efficiency of bortezomib conjugated to pegylated gold nanoparticles: an in vitro study on human pancreatic cancer cells and adenocarcinoma human lung alveolar basal epithelial cells. [https://pubmed.ncbi.nlm.nih.gov/27087021/]",
+          "Transferrin surface-modified PLGA nanoparticles-mediated delivery of a proteasome inhibitor to human pancreatic cancer cells. [https://pubmed.ncbi.nlm.nih.gov/25046528/]",
+          "Effects of the proteasome inhibitor bortezomib on gene expression profiles of pancreatic cancer cells. [https://pubmed.ncbi.nlm.nih.gov/17714734/]",
+          "Aggresome disruption: a novel strategy to enhance bortezomib-induced apoptosis in pancreatic cancer cells. [https://pubmed.ncbi.nlm.nih.gov/16585204/]"
+        ]
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "Would wait on clinical results before testing further in lab. "
+    },
+    "Buparlisib": {
+      "disease": "pancreatic cancer",
+      "drug": "Buparlisib",
+      "Q1": {
+        "selection": "Failed in any phases",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Rarely discussed"
+        ],
+        "literature_references": []
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "Please see aleplisib answer"
+    },
+    "Capivasertib": {
+      "disease": "pancreatic cancer",
+      "drug": "Capivasertib",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Rarely discussed"
+        ],
+        "literature_references": []
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "Please see: https://pmc.ncbi.nlm.nih.gov/articles/PMC11468005/. AKT inhibitors not working in pancreatic cancer. This is just another AKT inhibitor. "
+    },
+    "Cenegermin": {
+      "disease": "pancreatic cancer",
+      "drug": "Cenegermin",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Rarely discussed"
+        ],
+        "literature_references": []
+      },
+      "completed": true,
+      "Q3_interest": "Of interest for pre-clinical research in the lab",
+      "Q4_notes": "I actually requested this drug (or a drug with similar target) for use in a clinical trial 6-8 years ago and the company refused. "
+    },
+    "Chloramphenicol": {
+      "disease": "pancreatic cancer",
+      "drug": "Chloramphenicol",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Positive result in vitro result"
+        ],
+        "literature_references": [
+          "Fabrication of large pore mesoporous silica microspheres by salt-assisted spray-drying method for enhanced antibacterial activity and pancreatic cancer treatment. [https://pubmed.ncbi.nlm.nih.gov/33010394/]"
+        ]
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "The cited pre-clinical study was incorrectly interpreted. Chloramphenicol was not the drug loaded onto nanoparticles to treat pancreatic cancer in this paper. Just to treat bacteria. A different drug was loaded for pancreatic cancer treatment."
+    },
+    "Copanlisib": {
+      "disease": "pancreatic cancer",
+      "drug": "Copanlisib",
+      "Q1": {
+        "selection": "Failed in any phases",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Positive result in vitro result"
+        ],
+        "literature_references": [
+          "The Role of PI3K Inhibition in Suppressing Pancreatic Cancer Progression: Mechanistic Insights From Copanlisib Studies. [https://pubmed.ncbi.nlm.nih.gov/41251088/]"
+        ]
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11468005/"
+    },
+    "Dactolisib": {
+      "disease": "pancreatic cancer",
+      "drug": "Dactolisib",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Rarely discussed"
+        ],
+        "literature_references": []
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11468005/"
+    },
+    "Dexamethasone": {
+      "disease": "pancreatic cancer",
+      "drug": "Dexamethasone",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": [
+          "A Clinical Study of MK-2870 Alone or With Other Treatments to Treat Gastrointestinal Cancers [https://clinicaltrials.gov/study/NCT06428409]",
+          "Perioperative Epidural Block and Dexamethasone in Pancreatic Cancer Surgery [https://clinicaltrials.gov/study/NCT04025840]",
+          "Radiation Therapy Plus Chemotherapy in Treating Patients With Pancreatic Cancer [https://clinicaltrials.gov/study/NCT00002689]"
+        ]
+      },
+      "Q2": {
+        "selection": [
+          "Positive result in animal study"
+        ],
+        "literature_references": [
+          "Dexamethasone inhibits pancreatic tumor growth in preclinical models: Involvement of activating glucocorticoid receptor. [https://pubmed.ncbi.nlm.nih.gov/32619553/]",
+          "Dexamethasone reduces tumor recurrence and metastasis after pancreatic tumor resection in SCID mice. [https://pubmed.ncbi.nlm.nih.gov/18431088/]",
+          "Pharmacokinetic/Pharmacodynamic Modeling of the Anti-Cancer Effect of Dexamethasone in Pancreatic Cancer Xenografts and Anticipation of Human Efficacious Doses. [https://pubmed.ncbi.nlm.nih.gov/31655033/]"
+        ]
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "Dexamethasone is routinely given as  nausea prophylaxis to all patients receiving standard of care FOLFIRINOX chemotherapy.  There is also negative data that suggest it worsens cachexia caused by cancer and inhibits immune reactivity. "
+    },
+    "Dibotermin alfa": {
+      "disease": "pancreatic cancer",
+      "drug": "Dibotermin alfa",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Rarely discussed"
+        ],
+        "literature_references": []
+      },
+      "completed": true,
+      "Q3_interest": "Of interest for pre-clinical research in the lab",
+      "Q4_notes": "There are interesting data that the target of this drug increases proliferation in pancreatic cancer models. "
+    },
+    "EW-7197": {
+      "disease": "pancreatic cancer",
+      "drug": "EW-7197",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Rarely discussed"
+        ],
+        "literature_references": []
+      },
+      "completed": true,
+      "Q3_interest": "Of interest for pre-clinical research in the lab",
+      "Q4_notes": "ALK5 inhibition using other means looks like a promising possible therapy"
+    },
+    "Everolimus": {
+      "disease": "pancreatic cancer",
+      "drug": "Everolimus",
+      "Q1": {
+        "selection": "Failed in any phases",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Positive result in animal study"
+        ],
+        "literature_references": [
+          "The combination of everolimus and zoledronic acid increase the efficacy of gemcitabine in a mouse model of pancreatic adenocarcinoma. [https://pubmed.ncbi.nlm.nih.gov/29963262/]"
+        ]
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "Failed in combination with gemcitabine standard of are in PDAC: NCT00560963\n(Results not published, but last updated in 2020)"
+    },
+    "Floxuridine": {
+      "disease": "pancreatic cancer",
+      "drug": "Floxuridine",
+      "Q1": {
+        "selection": "In phase II",
+        "clinicaltrial_references": [
+          "Hepatic Artery Infusional Floxuridine to Treat Pancreatic Cancer Liver Metastases [https://clinicaltrials.gov/study/NCT03856658]"
+        ]
+      },
+      "Q2": {
+        "selection": [
+          "Positive result in animal study"
+        ],
+        "literature_references": [
+          "Intratumoral chemotherapy with a sustained-release drug delivery system inhibits growth of human pancreatic cancer xenografts. [https://pubmed.ncbi.nlm.nih.gov/8845483/]"
+        ]
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "This is a form of 5-Fluorouracil (an approved drug for pDAC) that is metabolized by liver on first pass. It is already being used in hepatic artery infusion pumps by surgeons- which is the only possible applicaiton."
+    },
+    "Formestane": {
+      "disease": "pancreatic cancer",
+      "drug": "Formestane",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Rarely discussed"
+        ],
+        "literature_references": []
+      },
+      "completed": true,
+      "Q3_interest": "Of interest for pre-clinical research in the lab",
+      "Q4_notes": "Has not been tested. Some data suggest inhibiting estrogen receptor could slow pancreatic cancer growth"
+    },
+    "GSK1120212": {
+      "disease": "pancreatic cancer",
+      "drug": "GSK1120212",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Positive result in animal study"
+        ],
+        "literature_references": [
+          "Inhibition of the growth of patient-derived pancreatic cancer xenografts with the MEK inhibitor trametinib is augmented by combined treatment with the epidermal growth factor receptor/HER2 inhibitor lapatinib. [https://pubmed.ncbi.nlm.nih.gov/23441129/]"
+        ]
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "another MEK inhibitor. MEK inhibitors don't work in pdac."
+    },
+    "Galunisertib": {
+      "disease": "pancreatic cancer",
+      "drug": "Galunisertib",
+      "Q1": {
+        "selection": "Failed in any phases",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Positive result in vivo result"
+        ],
+        "literature_references": [
+          "TGF-β Alters the Proportion of Infiltrating Immune Cells in a Pancreatic Ductal Adenocarcinoma. [https://pubmed.ncbi.nlm.nih.gov/34260016/]"
+        ]
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "failed in clinical studies"
+    },
+    "Gedatolisib": {
+      "disease": "pancreatic cancer",
+      "drug": "Gedatolisib",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Rarely discussed"
+        ],
+        "literature_references": []
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11468005/\n"
+    },
+    "Gemcitabine": {
+      "disease": "pancreatic cancer",
+      "drug": "Gemcitabine",
+      "Q1": {
+        "selection": "FDA-Approved to pancreatic cancer",
+        "clinicaltrial_references": []
+      },
+      "completed": true,
+      "Q2": {
+        "selection": []
+      },
+      "Q4_notes": "Is an approved standard of care drug for pancreatic cancer. The oldest one.",
+      "Q3_interest": "Not interest"
+    },
+    "Griseofulvin": {
+      "disease": "pancreatic cancer",
+      "drug": "Griseofulvin",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Rarely discussed"
+        ],
+        "literature_references": []
+      },
+      "completed": true,
+      "Q3_interest": "Of interest for pre-clinical research in the lab",
+      "Q4_notes": ""
+    },
+    "Hexamidine": {
+      "disease": "pancreatic cancer",
+      "drug": "Hexamidine",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Rarely discussed"
+        ],
+        "literature_references": []
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "This is a topical medication.  Route not suitable for pancreatic cancer treatment"
+    },
+    "Hydrocortisone aceta": {
+      "disease": "pancreatic cancer",
+      "drug": "Hydrocortisone aceta",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Rarely discussed"
+        ],
+        "literature_references": []
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "This is a topical steroid. See dex about steroid. Also, topical not useful in cancer. "
+    },
+    "INK128": {
+      "disease": "pancreatic cancer",
+      "drug": "INK128",
+      "Q1": {
+        "selection": "In phase I",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Positive result in vitro result"
+        ],
+        "literature_references": [
+          "The novel mTORC1/2 dual inhibitor INK-128 suppresses survival and proliferation of primary and transformed human pancreatic cancer cells. [https://pubmed.ncbi.nlm.nih.gov/24971544/]"
+        ]
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11468005/"
+    },
+    "Ibritumomab tiuxetan": {
+      "disease": "pancreatic cancer",
+      "drug": "Ibritumomab tiuxetan",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Rarely discussed"
+        ],
+        "literature_references": []
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "This is an anti-CD20. It modulates B cells. "
+    },
+    "Idelalisib": {
+      "disease": "pancreatic cancer",
+      "drug": "Idelalisib",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Rarely discussed"
+        ],
+        "literature_references": []
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11468005/\nanother PI3K inhibitor"
+    },
+    "Ingenol mebutate": {
+      "disease": "pancreatic cancer",
+      "drug": "Ingenol mebutate",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Positive result in vitro result"
+        ],
+        "literature_references": [
+          "Ingenol mebutate inhibits the growth of pancreatic cancer cells in vitro via STING with an efficacy comparable to that of clinically used anticancer agents. [https://pubmed.ncbi.nlm.nih.gov/36694038/]"
+        ]
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "topical agent. not an acceptable route of delivery for pancreatic cancer. "
+    },
+    "Ipatasertib": {
+      "disease": "pancreatic cancer",
+      "drug": "Ipatasertib",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Rarely discussed"
+        ],
+        "literature_references": []
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11468005/\nanother AKT inhibitor"
+    },
+    "Itopride": {
+      "disease": "pancreatic cancer",
+      "drug": "Itopride",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Rarely discussed"
+        ],
+        "literature_references": []
+      },
+      "completed": true,
+      "Q3_interest": "Of interest for pre-clinical research in the lab",
+      "Q4_notes": ""
+    },
+    "LY2109761": {
+      "disease": "pancreatic cancer",
+      "drug": "LY2109761",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Positive result in vivo result"
+        ],
+        "literature_references": [
+          "LY2109761, a novel transforming growth factor beta receptor type I and type II dual inhibitor, as a therapeutic approach to suppressing pancreatic cancer metastasis. [https://pubmed.ncbi.nlm.nih.gov/18413796/]"
+        ]
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "This is TGFb inhibitor. Others have not shown efficacy in pdac. "
+    },
+    "Levomefolic acid": {
+      "disease": "pancreatic cancer",
+      "drug": "Levomefolic acid",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Rarely discussed"
+        ],
+        "literature_references": []
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "This is a B vitamin.  Would be very difficult to do a study with it and control for regular intake. "
+    },
+    "MK-2206": {
+      "disease": "pancreatic cancer",
+      "drug": "MK-2206",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Positive result in vivo result"
+        ],
+        "literature_references": [
+          "Combined Inhibition of Cyclin-Dependent Kinases (Dinaciclib) and AKT (MK-2206) Blocks Pancreatic Tumor Growth and Metastases in Patient-Derived Xenograft Models. [https://pubmed.ncbi.nlm.nih.gov/25931518/]"
+        ]
+      },
+      "completed": true,
+      "Q4_notes": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11468005/\nanother AKT inhibitor\n"
+    },
+    "Mesalazine": {
+      "disease": "pancreatic cancer",
+      "drug": "Mesalazine",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Rarely discussed"
+        ],
+        "literature_references": []
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "This is a drug similar to aspirin. If I was going to study, I would pick aspirin instead. "
+    },
+    "Nifurtimox": {
+      "disease": "pancreatic cancer",
+      "drug": "Nifurtimox",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Positive result in vitro result"
+        ],
+        "literature_references": [
+          "Targeting ESE3/EHF With Nifurtimox Inhibits CXCR2(+) Neutrophil Infiltration and Overcomes Pancreatic Cancer Resistance to Chemotherapy and Immunotherapy. [https://pubmed.ncbi.nlm.nih.gov/38492894/]"
+        ]
+      },
+      "completed": true,
+      "Q3_interest": "Of interest for pre-clinical research in the lab",
+      "Q4_notes": ""
+    },
+    "Niraparib": {
+      "disease": "pancreatic cancer",
+      "drug": "Niraparib",
+      "Q1": {
+        "selection": "Failed in any phases",
+        "clinicaltrial_references": [
+          "Niraparib in Patients With Pancreatic Cancer [https://clinicaltrials.gov/study/NCT03601923]",
+          "Niraparib Combined With Anlotinib in Homologous Recombination Repair (HRR) Gene-mutated Advanced Solid Tumors [https://clinicaltrials.gov/study/NCT04764084]"
+        ]
+      },
+      "Q2": {
+        "selection": [
+          "Positive result in animal study"
+        ],
+        "literature_references": [
+          "A radioiodinated rucaparib analogue as an Auger electron emitter for cancer therapy. [https://pubmed.ncbi.nlm.nih.gov/36621256/]"
+        ]
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": ""
+    },
+    "Nivolumab": {
+      "disease": "pancreatic cancer",
+      "drug": "Nivolumab",
+      "Q1": {
+        "selection": "Failed in any phases",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Positive result in vivo result"
+        ],
+        "literature_references": [
+          "IFN-γ down-regulates the PD-1 expression and assist nivolumab in PD-1-blockade effect on CD8+ T-lymphocytes in pancreatic cancer. [https://pubmed.ncbi.nlm.nih.gov/31694582/]",
+          "A phase 1b trial of concurrent immunotherapy and irreversible electroporation in the treatment of locally advanced pancreatic adenocarcinoma. [https://pubmed.ncbi.nlm.nih.gov/32631655/]"
+        ]
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "people are still trying it in pancreatic cancer with complex combinations of other drugs and modalities. as a single agent it is useless. "
+    },
+    "Paclitaxel": {
+      "disease": "pancreatic cancer",
+      "drug": "Paclitaxel",
+      "Q1": {
+        "selection": "Failed in any phases",
+        "clinicaltrial_references": [
+          "A Clinical Trial Testing the Safety of BNT327 (an Investigational Drug) and How Well it Works When Combined With Chemotherapy for People Who Have Not Been Treated Yet for Pancreatic Cancer [https://clinicaltrials.gov/study/NCT07255404]",
+          "A Study to Evaluate the Safety and Tolerability of AB680 in Participants With Gastrointestinal Malignancies [https://clinicaltrials.gov/study/NCT04104672]",
+          "Nab-Paclitaxel in Locally Advanced Pancreatic Cancer [https://clinicaltrials.gov/study/NCT03257033]"
+        ]
+      },
+      "Q2": {
+        "selection": [
+          "Positive result in vitro result"
+        ],
+        "literature_references": [
+          "Inhibitory effects of the combination of rapamycin with gemcitabine plus paclitaxel on the growth of pancreatic cancer tumors. [https://pubmed.ncbi.nlm.nih.gov/39794664/]",
+          "3-Indoleacetic Acid-Modified Chondroitin Sulfate-Mediated Paclitaxel Nanocrystal Assembly for the Treatment of Pancreatic Cancer. [https://pubmed.ncbi.nlm.nih.gov/39901810/]"
+        ]
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "paclitaxel + gem was a negative study. (although nab-paclitaxel + gem was a positive study). This is not a drug that I would further pursue in pdac. "
+    },
+    "Pembrolizumab": {
+      "disease": "pancreatic cancer",
+      "drug": "Pembrolizumab",
+      "Q1": {
+        "selection": "Failed in any phases",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Positive result in vivo result"
+        ],
+        "literature_references": [
+          "Expression and role of the immune checkpoint regulator PD-L1 in the tumor-stroma interplay of pancreatic ductal adenocarcinoma. [https://pubmed.ncbi.nlm.nih.gov/37449210/]",
+          "Defactinib, Pembrolizumab, and Gemcitabine in Patients with Advanced Treatment Refractory Pancreatic Cancer: A Phase I Dose Escalation and Expansion Study. [https://pubmed.ncbi.nlm.nih.gov/36228156/]"
+        ]
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "see nivolumab. same problem "
+    },
+    "Pentostatin": {
+      "disease": "pancreatic cancer",
+      "drug": "Pentostatin",
+      "Q1": {
+        "selection": "Failed in any phases",
+        "clinicaltrial_references": [
+          "SS1P and Pentostatin Plus Cyclophosphamide for Mesothelioma [https://clinicaltrials.gov/study/NCT01362790]"
+        ]
+      },
+      "Q2": {
+        "selection": [
+          "Rarely discussed"
+        ],
+        "literature_references": []
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "failed in 2015. see NCT00864513"
+    },
+    "Perifosine": {
+      "disease": "pancreatic cancer",
+      "drug": "Perifosine",
+      "Q1": {
+        "selection": "Failed in any phases",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Positive result in vitro result"
+        ],
+        "literature_references": [
+          "Perifosine inhibits S6K1-Gli1 signaling and enhances gemcitabine-induced anti-pancreatic cancer efficiency. [https://pubmed.ncbi.nlm.nih.gov/24519751/]"
+        ]
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "NCT00053924. already tested in clinical trial. no results published in 2 years. negative study. AKT inihibitors do not work in this disease. "
+    },
+    "Pexidartinib": {
+      "disease": "pancreatic cancer",
+      "drug": "Pexidartinib",
+      "Q1": {
+        "selection": "Failed in any phases",
+        "clinicaltrial_references": [
+          "Evaluation of Safety and Activity of an Anti-PDL1 Antibody (DURVALUMAB) Combined With CSF-1R TKI (PEXIDARTINIB) in Patients With Metastatic/Advanced Pancreatic or Colorectal Cancers [https://clinicaltrials.gov/study/NCT02777710]"
+        ]
+      },
+      "Q2": {
+        "selection": [
+          "Rarely discussed"
+        ],
+        "literature_references": []
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "NCT02777710\nnegative study"
+    },
+    "Pimasertib": {
+      "disease": "pancreatic cancer",
+      "drug": "Pimasertib",
+      "Q1": {
+        "selection": "Failed in any phases",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Positive result in vitro result"
+        ],
+        "literature_references": [
+          "MEK inhibition leads to BRCA2 downregulation and sensitization to DNA damaging agents in pancreas and ovarian cancer models. [https://pubmed.ncbi.nlm.nih.gov/29545922/]",
+          "The MEK1/2 Inhibitor Pimasertib Enhances Gemcitabine Efficacy in Pancreatic Cancer Models by Altering Ribonucleotide Reductase Subunit-1 (RRM1). [https://pubmed.ncbi.nlm.nih.gov/26228206/]"
+        ]
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "NCT01016483. negative study with gem.\nMEK inihibitors do not work in this disease."
+    },
+    "Quinacrine": {
+      "disease": "pancreatic cancer",
+      "drug": "Quinacrine",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Positive result in vitro result"
+        ],
+        "literature_references": [
+          "Undaria pinnatifida fucoidan nanoparticles loaded with quinacrine attenuate growth and metastasis of pancreatic cancer. [https://pubmed.ncbi.nlm.nih.gov/33340624/]",
+          "Lactoferrin/Hyaluronic acid double-coated lignosulfonate nanoparticles of quinacrine as a controlled release biodegradable nanomedicine targeting pancreatic cancer. [https://pubmed.ncbi.nlm.nih.gov/32032904/]",
+          "A Unified Approach to Targeting the Lysosome's Degradative and Growth Signaling Roles. [https://pubmed.ncbi.nlm.nih.gov/28899863/]"
+        ]
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "Modest effect of nanoparticle combinations. Studies with other drugs in this class have failed. "
+    },
+    "RO4987655": {
+      "disease": "pancreatic cancer",
+      "drug": "RO4987655",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Rarely discussed"
+        ],
+        "literature_references": []
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "This is another MEK inhibitor. "
+    },
+    "Refametinib": {
+      "disease": "pancreatic cancer",
+      "drug": "Refametinib",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Positive result in vitro result"
+        ],
+        "literature_references": [
+          "TFEB-mediated lysosomal biogenesis and lysosomal drug sequestration confer resistance to MEK inhibition in pancreatic cancer. [https://pubmed.ncbi.nlm.nih.gov/32194992/]"
+        ]
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "this is another MEK inhibitor"
+    },
+    "Rituximab": {
+      "disease": "pancreatic cancer",
+      "drug": "Rituximab",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": [
+          {
+            "study_summary": {
+              "title": "A Phase 3 Study of Tabelecleucel for Participants With Epstein-Barr Virus-Associated Post-Transplant Lymphoproliferative Disease After Failure With Rituximab or Rituximab and Chemotherapy",
+              "NCTID": "NCT03394365",
+              "drug_for_treatment": [
+                "Tabelecleucel"
+              ],
+              "indication": "Epstein-Barr Virus-Associated Post-Transplant Lymphoproliferative Disease",
+              "result_summary_sentence": "No results posted yet.",
+              "phase": "Phase 3",
+              "risk_level": "High",
+              "positive_or_negative": "",
+              "population_summary": "Participants with Epstein-Barr Virus-Associated Post-Transplant Lymphoproliferative Disease after failure with Rituximab or Rituximab and Chemotherapy",
+              "has_results": false,
+              "sample_size": 100,
+              "start_year": 2018,
+              "this_year-start_year": 5,
+              "complete_year": 2023
+            },
+            "scoring": {
+              "mechanism": {
+                "score": 85,
+                "explanation": "Tabelecleucel is an allogeneic T-cell therapy targeting Epstein-Barr Virus (EBV)-infected cells, which is highly relevant to the disease biology of EBV-associated post-transplant lymphoproliferative disease (PTLD). The mechanism is well-established and similar approaches have shown success in other EBV-related conditions."
+              },
+              "clinical_evidence": {
+                "score": 70,
+                "explanation": "Although no results are posted yet, the study is in Phase 3, indicating prior phases have shown sufficient promise to justify further investigation. The referenced publication in Lancet Oncology suggests positive early clinical signals."
+              },
+              "safety_predictability": {
+                "score": 60,
+                "explanation": "Expected toxicities are manageable based on the mechanism of action. Immune-related adverse events are anticipated but can be monitored and managed. Previous studies have not indicated severe unexpected toxicities."
+              },
+              "trial_quality": {
+                "score": 75,
+                "explanation": "The trial design is robust, with clear endpoints and inclusion criteria. The multicenter, open-label design allows for meaningful signal detection and comprehensive data collection."
+              },
+              "result_status": {
+                "score": 49,
+                "category": "ongoing_long_term_incomplete",
+                "explanation": "The study has been ongoing for 5 years without posted results, which exceeds normal development timelines for Phase 3 trials. This suggests potential delays or issues in data collection or analysis."
+              },
+              "target_drug_importance": {
+                "score": 90,
+                "role": "major",
+                "explanation": "Tabelecleucel is the primary experimental agent in this study, making its individual contribution central to the study outcomes."
+              },
+              "overall_confidence": {
+                "score": 70,
+                "explanation": "The investigational drug has a strong mechanistic rationale and promising early clinical signals. However, the lack of posted results and the extended timeline reduce confidence slightly. Overall, the drug shows high potential but requires further validation."
+              }
+            },
+            "nct_id": "NCT03394365"
+          },
+          {
+            "study_summary": {
+              "title": "A Phase 1/2 Study of CYT-0851 in B-Cell Malignancies and Advanced Solid Tumors",
+              "NCTID": "NCT03997968",
+              "drug_for_treatment": [
+                "CYT-0851"
+              ],
+              "indication": "Relapsed/Refractory B-Cell Malignancies and Advanced Solid Tumors",
+              "result_summary_sentence": "The study is completed but no results have been posted.",
+              "phase": "Phase 1/2",
+              "risk_level": "High",
+              "positive_or_negative": "Unknown",
+              "population_summary": "Patients with relapsed/refractory B-cell malignancies and advanced solid tumors",
+              "has_results": false,
+              "sample_size": 100,
+              "start_year": 2019,
+              "this_year-start_year": 5,
+              "complete_year": 2024
+            },
+            "scoring": {
+              "mechanism": {
+                "score": 75,
+                "explanation": "CYT-0851 targets a mechanism relevant to B-cell malignancies and solid tumors, with a strong mechanistic rationale based on preclinical studies. However, the specific target's validation in clinical settings is still emerging."
+              },
+              "clinical_evidence": {
+                "score": 30,
+                "explanation": "The study is completed but no results have been posted, which weakens the clinical evidence. The lack of published data or press releases suggests limited early clinical signals."
+              },
+              "safety_predictability": {
+                "score": 50,
+                "explanation": "Safety and tolerability are expected to be moderate based on the mechanism of action. However, without clinical results, the predictability remains uncertain."
+              },
+              "trial_quality": {
+                "score": 60,
+                "explanation": "The trial design appears robust with a multi-center, open-label approach and a reasonable sample size. However, the lack of results impacts the overall quality assessment."
+              },
+              "result_status": {
+                "score": 34,
+                "category": "completed_no_result",
+                "explanation": "The study is marked as completed for more than 12 months with no posted results, which significantly impacts confidence in the investigational drug."
+              },
+              "target_drug_importance": {
+                "score": 80,
+                "role": "major",
+                "explanation": "CYT-0851 is the primary experimental agent in the study, making its evaluation central to the study outcome."
+              },
+              "overall_confidence": {
+                "score": 45,
+                "explanation": "Overall confidence is moderate due to the strong mechanistic rationale and trial design, but significantly impacted by the lack of clinical results and weak early clinical signals."
+              }
+            },
+            "nct_id": "NCT03997968"
+          },
+          {
+            "study_summary": {
+              "title": "A Phase II Clinical Trial of Suppression of Human Antimouse Antibody and Human Antitoxin Response to Immunotoxin LMB-1 by Rituximab",
+              "NCTID": "NCT00001805",
+              "drug_for_treatment": [
+                "Rituximab"
+              ],
+              "indication": "Advanced stage solid tumors",
+              "result_summary_sentence": "No results posted yet.",
+              "phase": "Phase II",
+              "risk_level": "High",
+              "positive_or_negative": "",
+              "population_summary": "Patients with advanced stage solid tumors refractory to standard treatment or for whom no effective standard therapy exists.",
+              "has_results": false,
+              "sample_size": 20,
+              "start_year": 1999,
+              "this_year-start_year": 24,
+              "complete_year": null
+            },
+            "scoring": {
+              "mechanism": {
+                "score": 80,
+                "explanation": "Rituximab targets CD20, a well-established target in oncology, particularly in B-cell malignancies. The mechanistic rationale is strong given the drug's known efficacy in similar indications."
+              },
+              "clinical_evidence": {
+                "score": 35,
+                "explanation": "The study has been ongoing for a long period (24 years) without posted results, which weakens the clinical evidence. No direct evidence from this study is available to support efficacy."
+              },
+              "safety_predictability": {
+                "score": 70,
+                "explanation": "Rituximab has a well-characterized safety profile from extensive use in clinical practice. Expected toxicities are manageable and predictable."
+              },
+              "trial_quality": {
+                "score": 60,
+                "explanation": "The trial design includes clear inclusion criteria and endpoints, but the small sample size (20 patients) limits the robustness of the data."
+              },
+              "result_status": {
+                "score": 35,
+                "category": "ongoing_long_term_incomplete",
+                "explanation": "The study has been ongoing for 24 years without posted results, which exceeds normal development timelines for Phase II trials."
+              },
+              "target_drug_importance": {
+                "score": 90,
+                "role": "major",
+                "explanation": "Rituximab is the primary experimental agent in this study, making its individual contribution central to the study outcome."
+              },
+              "overall_confidence": {
+                "score": 55,
+                "explanation": "While the mechanistic rationale and safety profile are strong, the lack of clinical evidence and long duration without results reduce overall confidence in the investigational drug's efficacy against the disease."
+              }
+            },
+            "nct_id": "NCT00001805"
+          }
+        ]
+      },
+      "Q2": {
+        "selection": [
+          "Rarely discussed"
+        ],
+        "literature_references": [
+          "Redirecting gene-modified T cells toward various cancer types using tagged antibodies. [https://pubmed.ncbi.nlm.nih.gov/23032741/]"
+        ]
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "This is a CD19 inhibitor that will globally reduce B cells. "
+    },
+    "Romidepsin": {
+      "disease": "pancreatic cancer",
+      "drug": "Romidepsin",
+      "Q1": {
+        "selection": "In phase I",
+        "clinicaltrial_references": [
+          "Safety and Tolerance of Epigenetic and Immunomodulating Drugs Combined With Chemotherapeutics in Patients Suffering From Advanced Pancreatic Cancer [https://clinicaltrials.gov/study/NCT04257448]",
+          "Phase I Study of Romidepsin in Patients With Advanced Malignancies [https://clinicaltrials.gov/study/NCT01638533]",
+          "A Study of Romidepsin (Depsipeptide) in Combination With Gemcitabine in Patients With Pancreatic and Other Advanced Solid Tumors [https://clinicaltrials.gov/study/NCT00379639]"
+        ]
+      },
+      "Q2": {
+        "selection": [
+          "Positive result in vitro result"
+        ],
+        "literature_references": [
+          "Combined HDAC and eIF4A inhibition: A novel epigenetic therapy for pancreatic ductal adenocarcinoma. [https://pubmed.ncbi.nlm.nih.gov/41106207/]",
+          "Combined HDAC and eIF4A inhibition: A novel epigenetic therapy for pancreatic adenocarcinoma. [https://pubmed.ncbi.nlm.nih.gov/39005268/]",
+          "Selective Inhibition of Histone Deacetylases 1/2/6 in Combination with Gemcitabine: A Promising Combination for Pancreatic Cancer Therapy. [https://pubmed.ncbi.nlm.nih.gov/31500290/]",
+          "An epigenetic approach to pancreatic cancer treatment: the prospective role of histone deacetylase inhibitors. [https://pubmed.ncbi.nlm.nih.gov/22309455/]"
+        ]
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "Two combinations have gone to clinical trial-\ngem/ romidepsin is a failed trial\na second trial is with other agents was recently completed and has results pending"
+    },
+    "Selumetinib": {
+      "disease": "pancreatic cancer",
+      "drug": "Selumetinib",
+      "Q1": {
+        "selection": "Failed in any phases",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Rarely discussed"
+        ],
+        "literature_references": [
+          "Design, one-pot synthesis, computational and biological evaluation of diaryl benzimidazole derivatives as MEK inhibitors. [https://pubmed.ncbi.nlm.nih.gov/37807916/]"
+        ]
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "negative clinical study"
+    },
+    "Sorafenib": {
+      "disease": "pancreatic cancer",
+      "drug": "Sorafenib",
+      "Q1": {
+        "selection": "Failed in any phases",
+        "clinicaltrial_references": [
+          "A Clinical Study of Sorafenib Combined With Gefitinib for the Treatment of pNET [https://clinicaltrials.gov/study/NCT06592989]",
+          "Phase II Trial of Vemurafenib and Sorafenib in Pancreatic Cancer [https://clinicaltrials.gov/study/NCT05068752]",
+          "Metastatic Advanced Pancreas Sorafenib [https://clinicaltrials.gov/study/NCT00758381]"
+        ]
+      },
+      "completed": true,
+      "Q2": {
+        "selection": []
+      },
+      "Q3_interest": "Not interest",
+      "Q4_notes": "There have been many trials of sorafenib combinations in pdac and all have failed."
+    },
+    "Sulfadiazine": {
+      "disease": "pancreatic cancer",
+      "drug": "Sulfadiazine",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Rarely discussed"
+        ],
+        "literature_references": []
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": ""
+    },
+    "Sulfasalazine": {
+      "disease": "pancreatic cancer",
+      "drug": "Sulfasalazine",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Positive result in vitro result"
+        ],
+        "literature_references": [
+          "Potential use of the anti-inflammatory drug, sulfasalazine, for targeted therapy of pancreatic cancer. [https://pubmed.ncbi.nlm.nih.gov/20567622/]",
+          "Usage of the NF-kappaB inhibitor sulfasalazine as sensitizing agent in combined chemotherapy of pancreatic cancer. [https://pubmed.ncbi.nlm.nih.gov/12584745/]"
+        ]
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "similar drug to aspirin"
+    },
+    "Talaporfin": {
+      "disease": "pancreatic cancer",
+      "drug": "Talaporfin",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Positive result in vivo result"
+        ],
+        "literature_references": [
+          "Maltotriose Conjugation to a Chlorin Derivative Enhances the Antitumor Effects of Photodynamic Therapy in Peritoneal Dissemination of Pancreatic Cancer. [https://pubmed.ncbi.nlm.nih.gov/28292934/]"
+        ]
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "requires exposure to light for activation which would not be feasible intra-abdominal"
+    },
+    "Trametinib": {
+      "disease": "pancreatic cancer",
+      "drug": "Trametinib",
+      "Q1": {
+        "selection": "Failed in any phases",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Positive result in vitro result"
+        ],
+        "literature_references": [
+          "Trametinib Thwarts Activation of Survival Pathways Induced by Pro-ferroptotic Drug Conjugate ACXT-3102 Resulting in Enhanced Pancreatic Cancer Cell Death. [https://pubmed.ncbi.nlm.nih.gov/40676970/]",
+          "Neobractatin and Trametinib Synergistically Induce Apoptosis and Gasdermin E-Dependent Pyroptosis in Pancreatic Cancer Cells. [https://pubmed.ncbi.nlm.nih.gov/40599236/]",
+          "Combined Omipalisib and MAPK Inhibition Suppress PDAC Growth. [https://pubmed.ncbi.nlm.nih.gov/40227649/]",
+          "Targeting MXD1 sensitises pancreatic cancer to trametinib. [https://pubmed.ncbi.nlm.nih.gov/39819860/]",
+          "Targeting KRAS-mutant pancreatic cancer through simultaneous inhibition of KRAS, MEK, and JAK2. [https://pubmed.ncbi.nlm.nih.gov/39400496/]",
+          "uPAR Immuno-PET in Pancreatic Cancer, Aging, and Chemotherapy-Induced Senescence. [https://pubmed.ncbi.nlm.nih.gov/39362768/]",
+          "(19)Fluorine-MRI Based Longitudinal Immuno-Microenvironment-Monitoring for Pancreatic Cancer. [https://pubmed.ncbi.nlm.nih.gov/39189434/]",
+          "Trametinib Potentiates Anti-PD-1 Efficacy in Tumors Established from Chemotherapy-Primed Pancreatic Cancer Cells. [https://pubmed.ncbi.nlm.nih.gov/39162011/]",
+          "Sex Matters-Insights from Testing Drug Efficacy in an Animal Model of Pancreatic Cancer. [https://pubmed.ncbi.nlm.nih.gov/38791980/]",
+          "Targeting pancreatic cancer metabolic dependencies through glutamine antagonism. [https://pubmed.ncbi.nlm.nih.gov/37814010/]",
+          "Design, one-pot synthesis, computational and biological evaluation of diaryl benzimidazole derivatives as MEK inhibitors. [https://pubmed.ncbi.nlm.nih.gov/37807916/]",
+          "Pancreatic cancer cell-derived semaphorin 3A promotes neuron recruitment to accelerate tumor growth and dissemination. [https://pubmed.ncbi.nlm.nih.gov/37693128/]",
+          "Combined PI3K and MAPK inhibition synergizes to suppress PDAC. [https://pubmed.ncbi.nlm.nih.gov/37645960/]",
+          "Cytotoxicity of combinations of the pan-KRAS SOS1 inhibitor BAY-293 against pancreatic cancer cell lines. [https://pubmed.ncbi.nlm.nih.gov/36048281/]",
+          "Combined MEK and STAT3 Inhibition Uncovers Stromal Plasticity by Enriching for Cancer-Associated Fibroblasts With Mesenchymal Stem Cell-Like Features to Overcome Immunotherapy Resistance in Pancreatic Cancer. [https://pubmed.ncbi.nlm.nih.gov/35948109/]",
+          "Unbiased in vivo preclinical evaluation of anticancer drugs identifies effective therapy for the treatment of pancreatic adenocarcinoma. [https://pubmed.ncbi.nlm.nih.gov/33199632/]",
+          "Phase I study of lapatinib plus trametinib in patients with KRAS-mutant colorectal, non-small cell lung, and pancreatic cancer. [https://pubmed.ncbi.nlm.nih.gov/32274564/]",
+          "TFEB-mediated lysosomal biogenesis and lysosomal drug sequestration confer resistance to MEK inhibition in pancreatic cancer. [https://pubmed.ncbi.nlm.nih.gov/32194992/]",
+          "Establishment of a novel human cell line retaining the characteristics of the original pancreatic adenocarcinoma, and evaluation of MEK as a therapeutic target. [https://pubmed.ncbi.nlm.nih.gov/32124956/]",
+          "Targeting the IκB Kinase Enhancer and Its Feedback Circuit in Pancreatic Cancer. [https://pubmed.ncbi.nlm.nih.gov/32004866/]"
+        ]
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "this class of drugs has failed in pancreatic cancer"
+    },
+    "Trifarotene": {
+      "disease": "pancreatic cancer",
+      "drug": "Trifarotene",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Rarely discussed"
+        ],
+        "literature_references": []
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "this is a topical medication. route not suitable for pancreatic cancer. "
+    },
+    "Vactosertib": {
+      "disease": "pancreatic cancer",
+      "drug": "Vactosertib",
+      "Q1": {
+        "selection": "Failed in any phases",
+        "clinicaltrial_references": []
+      },
+      "Q2": {
+        "selection": [
+          "Positive result in animal study"
+        ],
+        "literature_references": [
+          "Combination treatment of T1-44, a PRMT5 inhibitor with Vactosertib, an inhibitor of TGF-β signaling, inhibits invasion and prolongs survival in a mouse model of pancreatic tumors. [https://pubmed.ncbi.nlm.nih.gov/36765032/]",
+          "Inhibition of TGF-β signalling in combination with nal-IRI plus 5-Fluorouracil/Leucovorin suppresses invasion and prolongs survival in pancreatic tumour mouse models. [https://pubmed.ncbi.nlm.nih.gov/32076068/]"
+        ]
+      },
+      "completed": true,
+      "Q3_interest": "Not interest",
+      "Q4_notes": "NCT04258072\n\"unknown status for more than 3 years\" for this trial. doesn't sound like it worked."
+    },
+    "Venetoclax": {
+      "disease": "pancreatic cancer",
+      "drug": "Venetoclax",
+      "Q1": {
+        "selection": "No — No clinical trials identified for this drug in this disease",
+        "clinicaltrial_references": [
+          "Serial Measurements of Molecular and Architectural Responses to Therapy (SMMART) PRIME Trial [https://clinicaltrials.gov/study/NCT03878524]"
+        ]
+      },
+      "Q2": {
+        "selection": [
+          "Positive result in vitro result"
+        ],
+        "literature_references": [
+          "Fatty acid synthase (FASN) inhibition cooperates with BH3 mimetic drugs to overcome resistance to mitochondrial apoptosis in pancreatic cancer. [https://pubmed.ncbi.nlm.nih.gov/39999714/]",
+          "Targeting BCL2 with Venetoclax Enhances the Efficacy of the KRASG12D Inhibitor MRTX1133 in Pancreatic Cancer. [https://pubmed.ncbi.nlm.nih.gov/39137400/]"
+        ]
+      },
+      "completed": true,
+      "Q3_interest": "Of interest for pre-clinical research in the lab",
+      "Q4_notes": ""
+    }
+  }
+}
